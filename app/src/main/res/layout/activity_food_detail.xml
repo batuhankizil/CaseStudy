@@ -199,7 +199,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:layout_marginBottom="@dimen/margin_8dp"
-                    android:text="Medium"/>
+                    android:text="123 KCal"/>
 
             </LinearLayout>
             <LinearLayout
@@ -228,7 +228,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:layout_marginBottom="@dimen/margin_8dp"
-                    android:text="Medium"/>
+                    android:text="45 min"/>
 
             </LinearLayout>
 

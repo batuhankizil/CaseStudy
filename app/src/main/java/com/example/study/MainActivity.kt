@@ -8,17 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.study.adapter.CategoryAdapter
 import com.example.study.adapter.FoodsAdapter
 import com.example.study.databinding.ActivityMainBinding
+import com.example.study.databinding.ActivityMainConstraintBinding
 import com.example.study.model.CategoryModel
 import com.example.study.model.FoodsModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    //private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainConstraintBinding
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        //binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainConstraintBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         recyclerView = binding.recyclerCategory
