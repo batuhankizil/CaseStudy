@@ -12,6 +12,7 @@
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="12dp"
+        android:paddingBottom="8dp"
         android:paddingTop="8dp">
 
         <ImageView

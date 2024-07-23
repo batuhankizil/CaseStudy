@@ -1,5 +1,6 @@
 package com.example.study
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,9 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         val categoryList = ArrayList<CategoryModel>()
 
-        categoryList.add(CategoryModel("Hamburger", R.drawable.burger))
-        categoryList.add(CategoryModel("Pizza", R.drawable.pizza))
-        categoryList.add(CategoryModel("Sandwich", R.drawable.sandwich))
+        categoryList.add(CategoryModel("Hamburger", R.drawable.burger, true))
+        categoryList.add(CategoryModel("Pizza", R.drawable.pizza, false))
+        categoryList.add(CategoryModel("Sandwich", R.drawable.sandwich, false))
 
         val adapter = CategoryAdapter(categoryList)
 
@@ -44,12 +45,18 @@ class MainActivity : AppCompatActivity() {
         val foodsList = ArrayList<FoodsModel>()
 
         foodsList.add(FoodsModel(4.8, R.drawable.img_chicken_burger, "Chicken burger", "200 gr chicken + cheese  Lettuce + tomato", 22.0000))
-        foodsList.add(FoodsModel(4.5, R.drawable.img_chicken_burger, "Chicken burger", "200 gr chicken + cheese  Lettuce + tomato", 25.00))
+        foodsList.add(FoodsModel(4.5, R.drawable.chese_burger, "Chese burger", "200 gr meat + Lettuce cheese + onion + tomato", 25.00))
         foodsList.add(FoodsModel(4.3, R.drawable.img_chicken_burger, "Chicken burger", "200 gr chicken + cheese  Lettuce + tomato", 25.00))
 
         val adapterFoods = FoodsAdapter(foodsList)
 
         recyclerView.adapter = adapterFoods
+
+        adapterFoods.onItemClick = {
+            val intent = Intent(this, foodDetail::class.java)
+            intent.putExtra("food", it)
+            startActivity(intent)
+        }
 
 
     }

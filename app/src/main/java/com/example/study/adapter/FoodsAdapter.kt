@@ -14,16 +14,18 @@ import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
 import com.example.study.databinding.ItemFoodsBinding
+import com.example.study.databinding.ItemFoodsConstraintBinding
 import com.example.study.model.FoodsModel
 import java.util.zip.Inflater
 
 class FoodsAdapter(private val foodsList: ArrayList<FoodsModel>) :
     RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
+    class ViewHolder(val binding: ItemFoodsConstraintBinding) : RecyclerView.ViewHolder(binding.root)
 
-    class ViewHolder(val binding: ItemFoodsBinding) : RecyclerView.ViewHolder(binding.root)
+    var onItemClick : ((FoodsModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemFoodsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFoodsConstraintBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -41,6 +43,9 @@ class FoodsAdapter(private val foodsList: ArrayList<FoodsModel>) :
         holder.binding.foodPrice.text = spannableString
 
 
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(foods)
+        }
 
     }
 

@@ -103,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/title_categories"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"
         tools:listitem="@layout/item_category_constraint"
         android:orientation="horizontal"
@@ -112,10 +113,12 @@
         android:id="@+id/recyclerFoods"
         tools:listitem="@layout/item_foods_constraint"
         app:spanCount="2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/filter_button"
         app:layout_constraintTop_toBottomOf="@+id/recyclerCategory"/>
 
 
