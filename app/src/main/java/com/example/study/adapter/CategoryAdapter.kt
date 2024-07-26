@@ -1,29 +1,29 @@
 package com.example.study.adapter
 
-import android.content.Context
 import android.graphics.Color
-import android.icu.text.Transliterator.Position
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.adapters.SearchViewBindingAdapter.OnSuggestionClick
 import androidx.recyclerview.widget.RecyclerView
-import com.example.study.MainActivity
 import com.example.study.model.CategoryModel
 import com.example.study.R
-import com.example.study.databinding.ItemCategoryBinding
 import com.example.study.databinding.ItemCategoryConstraintBinding
 
-class CategoryAdapter(val categoryList: ArrayList<CategoryModel>) :
+class CategoryAdapter(
+    val categoryList: List<CategoryModel>,
+    val onItemClick: (Int) -> Unit
+) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ItemCategoryConstraintBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private var selectedPosition = 0
+    class ViewHolder(val binding: ItemCategoryConstraintBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =  ItemCategoryConstraintBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        val binding = ItemCategoryConstraintBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
@@ -35,18 +35,12 @@ class CategoryAdapter(val categoryList: ArrayList<CategoryModel>) :
 
         holder.itemView.setBackgroundResource(R.drawable.category_item_background)
 
-        if (position == selectedPosition) {
+        if (category.isSelected) {
             holder.binding.categoryName.setTextColor(Color.WHITE)
         } else holder.binding.categoryName.setTextColor(Color.BLACK)
 
-        holder.itemView.isSelected = position == selectedPosition
-
         holder.itemView.setOnClickListener {
-            val previousPosition = selectedPosition
-            selectedPosition = holder.adapterPosition
-
-            notifyItemChanged(previousPosition)
-            notifyItemChanged(selectedPosition)
+            onItemClick.invoke(category.id)
         }
 
     }

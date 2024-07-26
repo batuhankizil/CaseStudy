@@ -18,7 +18,7 @@ import com.example.study.databinding.ItemFoodsConstraintBinding
 import com.example.study.model.FoodsModel
 import java.util.zip.Inflater
 
-class FoodsAdapter(private val foodsList: ArrayList<FoodsModel>) :
+class FoodsAdapter(private val foodsList: List<FoodsModel>) :
     RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemFoodsConstraintBinding) : RecyclerView.ViewHolder(binding.root)
 
