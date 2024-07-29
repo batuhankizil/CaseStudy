@@ -37,6 +37,7 @@ class CategoryAdapter(
 
         if (category.isSelected) {
             holder.binding.categoryName.setTextColor(Color.WHITE)
+            holder.binding.categoryItem.setBackgroundResource(R.drawable.button_add_to_cart)
         } else holder.binding.categoryName.setTextColor(Color.BLACK)
 
         holder.itemView.setOnClickListener {

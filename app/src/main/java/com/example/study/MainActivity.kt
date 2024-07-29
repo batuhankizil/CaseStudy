@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,12 +45,13 @@ class MainActivity : AppCompatActivity() {
         val adapterFoods = FoodsAdapter(viewModel.getModels())
         binding.recyclerFoods.adapter = adapterFoods
 
+        binding.recyclerFoods.addItemDecoration(itemDecoration(this, spanCount = 2, spacingDp = 17))
+
         adapterFoods.onItemClick = {
             val intent = Intent(this, foodDetail::class.java)
             intent.putExtra("food", it)
             startActivity(intent)
         }
-
 
     }
 }

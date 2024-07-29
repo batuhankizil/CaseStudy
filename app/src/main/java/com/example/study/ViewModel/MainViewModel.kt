@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModel
 import com.example.study.R
 import com.example.study.model.CategoryModel
 import com.example.study.model.FoodsModel
+import kotlinx.coroutines.flow.flow
+import java.util.concurrent.Flow
 
 class MainViewModel : ViewModel() {
 
     private val _categoryModel = MutableLiveData<List<CategoryModel>>()
-    fun getCategoryModelLiveData() : LiveData<List<CategoryModel>> = _categoryModel
+    fun getCategoryModelLiveData(): LiveData<List<CategoryModel>> = _categoryModel
     fun init() {
         fetchCategoryModel()
     }
+
 
 
     fun getModels(): List<FoodsModel> {
@@ -94,6 +97,7 @@ class MainViewModel : ViewModel() {
         _categoryModel.value = _categoryModel.value?.map {
             if (it.id == selectedItemId) {
                 it.copy(isSelected = true)
+
             } else {
                 it.copy(isSelected = false)
             }
