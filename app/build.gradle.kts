@@ -53,10 +53,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
-
-
-
-
+    implementation("androidx.fragment:fragment-ktx:1.8.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

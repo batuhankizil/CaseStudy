@@ -17,14 +17,12 @@ class MainViewModel : ViewModel() {
         fetchCategoryModel()
     }
 
-
-
     fun getModels(): List<FoodsModel> {
         return buildList {
             add(
                 FoodsModel(
                     4.8,
-                    R.drawable.img_chicken_burger,
+                    R.drawable.chicken_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     22.00,
@@ -44,7 +42,7 @@ class MainViewModel : ViewModel() {
             add(
                 FoodsModel(
                     4.3,
-                    R.drawable.img_chicken_burger,
+                    R.drawable.chicken_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,

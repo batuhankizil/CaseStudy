@@ -1,0 +1,64 @@
+package com.example.study
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.study.ViewModel.MainViewModel
+import com.example.study.adapter.CategoryAdapter
+import com.example.study.adapter.FoodsAdapter
+import com.example.study.databinding.FragmentHomePageBinding
+
+class HomePageFragment : Fragment() {
+
+    val viewModel: MainViewModel by viewModels()
+
+    private lateinit var binding: FragmentHomePageBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomePageBinding.inflate(inflater, container, false)
+
+        viewModel.init()
+
+        binding.recyclerCategory.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        viewModel.getCategoryModelLiveData().observe(this@HomePageFragment) {
+            val adapter =
+                CategoryAdapter(it, onItemClick = { id -> viewModel.updateCategoryList(id) })
+            binding.recyclerCategory.adapter = adapter
+        }
+
+        binding.recyclerFoods.layoutManager = GridLayoutManager(context, 2)
+        val adapterFoods = FoodsAdapter(viewModel.getModels())
+        binding.recyclerFoods.adapter = adapterFoods
+
+        context?.let { itemDecoration(it, spanCount = 2, spacingDp = 17) }
+            ?.let { binding.recyclerFoods.addItemDecoration(it) }
+
+        adapterFoods.onItemClick = {
+            val fragment = FoodDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("food", it) // Eğer 'food' Parcelable implement ediyorsa
+                }
+            }
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null) // Geri dönülebilir olması için
+                .commit()
+        }
+
+
+
+        return binding.root
+    }
+}

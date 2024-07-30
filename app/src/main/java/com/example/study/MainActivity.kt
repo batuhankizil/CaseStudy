@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,39 +21,24 @@ import com.example.study.model.FoodsModel
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel: MainViewModel by viewModels()
-
     //private lateinit var binding: ActivityMainBinding
-    private lateinit var binding: ActivityMainConstraintBinding
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var fragmentManager: FragmentManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //binding = ActivityMainBinding.inflate(layoutInflater)
-        binding = ActivityMainConstraintBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.init()
+        replaceFragment(HomePageFragment())
 
-        binding.recyclerCategory.layoutManager =
-            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        viewModel.getCategoryModelLiveData().observe(this@MainActivity) {
-            val adapter =
-                CategoryAdapter(it, onItemClick = { id -> viewModel.updateCategoryList(id) })
-            binding.recyclerCategory.adapter = adapter
-        }
+    }
 
-        binding.recyclerFoods.layoutManager = GridLayoutManager(applicationContext, 2)
-        val adapterFoods = FoodsAdapter(viewModel.getModels())
-        binding.recyclerFoods.adapter = adapterFoods
-
-        binding.recyclerFoods.addItemDecoration(itemDecoration(this, spanCount = 2, spacingDp = 17))
-
-        adapterFoods.onItemClick = {
-            val intent = Intent(this, foodDetail::class.java)
-            intent.putExtra("food", it)
-            startActivity(intent)
-        }
-
+    private fun replaceFragment(homePageFragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment).commit()
     }
 }
