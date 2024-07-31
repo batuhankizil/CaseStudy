@@ -45,6 +45,10 @@ android {
 dependencies {
 
 
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v283)
     implementation(libs.androidx.activity.ktx)
@@ -53,7 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
+    implementation(libs.androidx.fragment.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

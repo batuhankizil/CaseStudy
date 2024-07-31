@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentController
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var binding: ActivityMainBinding
     private lateinit var binding: ActivityMainBinding
     private lateinit var fragmentManager: FragmentManager
+    private lateinit var navController: NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +36,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(HomePageFragment())
+        /*replaceFragment(HomePageFragment())*/
+
+
 
     }
 
-    private fun replaceFragment(homePageFragment: Fragment) {
+    /*private fun replaceFragment(homePageFragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentContainer, homePageFragment).commit()
-    }
+    }*/
 }

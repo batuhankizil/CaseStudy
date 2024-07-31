@@ -31,7 +31,7 @@ class HomePageFragment : Fragment() {
 
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        viewModel.getCategoryModelLiveData().observe(this@HomePageFragment) {
+        viewModel.getCategoryModelLiveData().observe(viewLifecycleOwner) {
             val adapter =
                 CategoryAdapter(it, onItemClick = { id -> viewModel.updateCategoryList(id) })
             binding.recyclerCategory.adapter = adapter
@@ -47,13 +47,13 @@ class HomePageFragment : Fragment() {
         adapterFoods.onItemClick = {
             val fragment = FoodDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable("food", it) // Eğer 'food' Parcelable implement ediyorsa
+                    putParcelable("food", it)
                 }
             }
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null) // Geri dönülebilir olması için
+                .addToBackStack(null)
                 .commit()
         }
 
