@@ -1,19 +1,21 @@
-package com.example.study
+package com.example.study.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.study.R
 import com.example.study.ViewModel.MainViewModel
 import com.example.study.adapter.CategoryAdapter
 import com.example.study.adapter.FoodsAdapter
 import com.example.study.databinding.FragmentHomePageBinding
+import com.example.study.itemDecoration
 
 class HomePageFragment : Fragment() {
 
@@ -45,7 +47,7 @@ class HomePageFragment : Fragment() {
             ?.let { binding.recyclerFoods.addItemDecoration(it) }
 
         adapterFoods.onItemClick = {
-            val fragment = FoodDetailFragment().apply {
+            /*val fragment = FoodDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("food", it)
                 }
@@ -54,11 +56,19 @@ class HomePageFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
                 .addToBackStack(null)
-                .commit()
+                .commit()*/
+
+            val bundle = Bundle()
+            bundle.putParcelable("food", it)
+            findNavController().navigate(R.id.foodDetailFragment, bundle)
         }
 
 
+        binding.filterButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homePageFragment_to_foodDetailFragment)
+        }
 
         return binding.root
     }
+
 }
