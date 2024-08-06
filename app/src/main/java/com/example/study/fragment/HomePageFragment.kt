@@ -29,7 +29,7 @@ class HomePageFragment : Fragment() {
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
-        viewModel.init()
+        //viewModel.fetchData()
 
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -62,6 +62,8 @@ class HomePageFragment : Fragment() {
             bundle.putParcelable("food", it)
             findNavController().navigate(R.id.foodDetailFragment, bundle)
         }
+
+
 
 
         binding.filterButton.setOnClickListener {

@@ -1,5 +1,7 @@
 package com.example.study.ViewModel
 
+import android.icu.util.ULocale.Category
+import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +15,12 @@ class MainViewModel : ViewModel() {
 
     private val _categoryModel = MutableLiveData<List<CategoryModel>>()
     fun getCategoryModelLiveData(): LiveData<List<CategoryModel>> = _categoryModel
-    fun init() {
+
+    init {
+        fetchData()
+    }
+
+    fun fetchData() {
         fetchCategoryModel()
     }
 
@@ -52,7 +59,7 @@ class MainViewModel : ViewModel() {
             add(
                 FoodsModel(
                     4.3,
-                    R.drawable.img_chicken_burger,
+                    R.drawable.chicken_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
@@ -62,7 +69,7 @@ class MainViewModel : ViewModel() {
             add(
                 FoodsModel(
                     4.3,
-                    R.drawable.img_chicken_burger,
+                    R.drawable.chese_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
@@ -72,7 +79,7 @@ class MainViewModel : ViewModel() {
             add(
                 FoodsModel(
                     4.3,
-                    R.drawable.img_chicken_burger,
+                    R.drawable.chese_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
@@ -95,7 +102,6 @@ class MainViewModel : ViewModel() {
         _categoryModel.value = _categoryModel.value?.map {
             if (it.id == selectedItemId) {
                 it.copy(isSelected = true)
-
             } else {
                 it.copy(isSelected = false)
             }
