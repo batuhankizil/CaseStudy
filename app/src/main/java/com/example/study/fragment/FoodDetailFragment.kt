@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.example.study.R
 import com.example.study.databinding.FragmentFoodDetailBinding
 import com.example.study.model.FoodsModel
 

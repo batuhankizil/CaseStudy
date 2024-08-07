@@ -5,8 +5,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class itemDecoration(
-    private val context: Context,
+class ItemDecoration(
+    context: Context,
     private val spanCount: Int,
     spacingDp: Int
 ) : RecyclerView.ItemDecoration() {

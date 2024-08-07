@@ -3,7 +3,6 @@ package com.example.study.adapter
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.adapters.SearchViewBindingAdapter.OnSuggestionClick
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.model.CategoryModel
 import com.example.study.R

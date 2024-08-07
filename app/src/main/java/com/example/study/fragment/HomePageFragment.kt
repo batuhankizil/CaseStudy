@@ -15,7 +15,7 @@ import com.example.study.ViewModel.MainViewModel
 import com.example.study.adapter.CategoryAdapter
 import com.example.study.adapter.FoodsAdapter
 import com.example.study.databinding.FragmentHomePageBinding
-import com.example.study.itemDecoration
+import com.example.study.ItemDecoration
 
 class HomePageFragment : Fragment() {
 
@@ -43,28 +43,14 @@ class HomePageFragment : Fragment() {
         val adapterFoods = FoodsAdapter(viewModel.getModels())
         binding.recyclerFoods.adapter = adapterFoods
 
-        context?.let { itemDecoration(it, spanCount = 2, spacingDp = 17) }
+        context?.let { ItemDecoration(it, spanCount = 2, spacingDp = 17) }
             ?.let { binding.recyclerFoods.addItemDecoration(it) }
 
         adapterFoods.onItemClick = {
-            /*val fragment = FoodDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable("food", it)
-                }
-            }
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null)
-                .commit()*/
-
             val bundle = Bundle()
             bundle.putParcelable("food", it)
             findNavController().navigate(R.id.foodDetailFragment, bundle)
         }
-
-
-
 
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_foodDetailFragment)

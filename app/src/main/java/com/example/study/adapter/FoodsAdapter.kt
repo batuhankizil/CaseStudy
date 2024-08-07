@@ -4,29 +4,24 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.SpannedString
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.study.R
-import com.example.study.databinding.ItemFoodsBinding
 import com.example.study.databinding.ItemFoodsConstraintBinding
 import com.example.study.model.FoodsModel
-import java.util.zip.Inflater
 
 class FoodsAdapter(private val foodsList: List<FoodsModel>) :
     RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ItemFoodsConstraintBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemFoodsConstraintBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    var onItemClick : ((FoodsModel) -> Unit)? = null
+    var onItemClick: ((FoodsModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemFoodsConstraintBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemFoodsConstraintBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -47,7 +42,8 @@ class FoodsAdapter(private val foodsList: List<FoodsModel>) :
         if (foods.discount) {
             holder.binding.discount.visibility = View.VISIBLE
             holder.binding.foodPriceDiscount.visibility = View.VISIBLE
-            holder.binding.foodPrice.paintFlags = holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.binding.foodPrice.paintFlags =
+                holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             holder.binding.discount.visibility = View.GONE
         }
