@@ -11,5 +11,6 @@ data class FoodsModel (
     val foodName: String,
     val foodDetail: String,
     val foodPrice: Double,
-    val id: Int
+    val id: Int,
+    val discount: Boolean
 ) : Parcelable

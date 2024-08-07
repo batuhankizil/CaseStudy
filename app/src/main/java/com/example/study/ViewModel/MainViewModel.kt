@@ -33,7 +33,8 @@ class MainViewModel : ViewModel() {
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     22.00,
-                    1
+                    1,
+                    true
                 )
             )
             add(
@@ -43,7 +44,8 @@ class MainViewModel : ViewModel() {
                     "Chese burger",
                     "200 gr meat + Lettuce cheese + onion + tomato",
                     25.00,
-                    2
+                    2,
+                    false
                 )
             )
             add(
@@ -53,7 +55,8 @@ class MainViewModel : ViewModel() {
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
-                    3
+                    3,
+                    false
                 )
             )
             add(
@@ -63,7 +66,8 @@ class MainViewModel : ViewModel() {
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
-                    4
+                    4,
+                    false
                 )
             )
             add(
@@ -73,7 +77,8 @@ class MainViewModel : ViewModel() {
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
-                    5
+                    5,
+                    false
                 )
             )
             add(
@@ -83,7 +88,8 @@ class MainViewModel : ViewModel() {
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
                     25.00,
-                    6
+                    6,
+                    false
                 )
             )
 

@@ -1,5 +1,6 @@
 package com.example.study.adapter
 
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
@@ -42,6 +43,14 @@ class FoodsAdapter(private val foodsList: List<FoodsModel>) :
         spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         holder.binding.foodPrice.text = spannableString
 
+
+        if (foods.discount) {
+            holder.binding.discount.visibility = View.VISIBLE
+            holder.binding.foodPriceDiscount.visibility = View.VISIBLE
+            holder.binding.foodPrice.paintFlags = holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            holder.binding.discount.visibility = View.GONE
+        }
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(foods)
