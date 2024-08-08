@@ -42,8 +42,7 @@ class FoodsAdapter(private val foodsList: List<FoodsModel>) :
         if (foods.discount) {
             holder.binding.discount.visibility = View.VISIBLE
             holder.binding.foodPriceDiscount.visibility = View.VISIBLE
-            holder.binding.foodPrice.paintFlags =
-                holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.binding.foodPrice.paintFlags = holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             holder.binding.discount.visibility = View.GONE
         }

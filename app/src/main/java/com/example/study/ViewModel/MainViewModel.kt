@@ -1,15 +1,11 @@
 package com.example.study.ViewModel
 
-import android.icu.util.ULocale.Category
-import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.study.R
 import com.example.study.model.CategoryModel
 import com.example.study.model.FoodsModel
-import kotlinx.coroutines.flow.flow
-import java.util.concurrent.Flow
 
 class MainViewModel : ViewModel() {
 
@@ -17,10 +13,6 @@ class MainViewModel : ViewModel() {
     fun getCategoryModelLiveData(): LiveData<List<CategoryModel>> = _categoryModel
 
     init {
-        fetchData()
-    }
-
-    fun fetchData() {
         fetchCategoryModel()
     }
 
@@ -32,7 +24,7 @@ class MainViewModel : ViewModel() {
                     R.drawable.chicken_burger,
                     "Chicken burger",
                     "200 gr chicken + cheese  Lettuce + tomato",
-                    22.00,
+                    28.00,
                     1,
                     true
                 )
