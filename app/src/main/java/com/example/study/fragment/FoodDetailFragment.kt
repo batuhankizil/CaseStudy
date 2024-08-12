@@ -13,7 +13,6 @@ import com.example.study.model.FoodsModel
 class FoodDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentFoodDetailBinding
-    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -29,7 +28,13 @@ class FoodDetailFragment : Fragment() {
             binding.foodImg.setImageResource(food.foodImage)
             binding.foodName.text = food.foodName
             binding.foodRank.text = food.foodRank.toString()
-            binding.foodPrice.text = food.foodPrice.toString()
+
+            if (food.discount) {
+                val discountedPrice = food.getDiscountedPrice()
+                binding.foodPrice.text = "$ " + discountedPrice.toString()
+            } else {
+                binding.foodPrice.text = "$ " + food.foodPrice.toString()
+            }
 
         }
 

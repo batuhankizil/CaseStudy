@@ -12,4 +12,11 @@ data class FoodsModel (
     val foodPrice: Double,
     val id: Int,
     val discount: Boolean
-) : Parcelable
+) : Parcelable {
+
+    fun getDiscountedPrice(): Double {
+        val discountRate = 0.10
+        return if (discount) foodPrice * (1 - discountRate) else foodPrice
+    }
+
+}

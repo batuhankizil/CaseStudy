@@ -55,16 +55,18 @@ class CollectiveAdapter(
     class FoodViewHolder(private val binding: ItemFoodsConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private fun calculateDiscount(foodPrice: Double): Double {
+        /*private fun calculateDiscount(foodPrice: Double): Double {
             val discount = 0.10
             return foodPrice * (1 - discount)
-        }
+        }*/
 
         fun bind(foodsModel: FoodsModel, onFoodClick: (FoodsModel) -> Unit) {
             binding.foodRank.text = foodsModel.foodRank.toString()
             binding.foodImage.setImageResource(foodsModel.foodImage)
             binding.foodName.text = foodsModel.foodName
             binding.foodDetail.text = foodsModel.foodDetail
+
+            val discountedPrice = foodsModel.getDiscountedPrice()
 
             val spannableString = SpannableString(foodsModel.foodPrice.toString())
             spannableString.setSpan(
@@ -77,8 +79,8 @@ class CollectiveAdapter(
 
             if (foodsModel.discount) {
                 binding.foodPrice.paintFlags = binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                binding.foodPriceDiscount.text = calculateDiscount(foodsModel.foodPrice).toString()
                 binding.foodPriceDiscount.visibility = View.VISIBLE
+                binding.foodPriceDiscount.text = discountedPrice.toString()
             } else {
                 binding.discount.visibility = View.GONE
             }

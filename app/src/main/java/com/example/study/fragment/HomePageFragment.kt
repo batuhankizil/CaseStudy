@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,12 +17,16 @@ import com.example.study.databinding.FragmentHomePageBinding
 import com.example.study.ItemDecoration
 import com.example.study.adapter.CollectiveAdapter
 import com.example.study.adapter.CollectiveModel
+import com.example.study.model.FoodsModel
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class HomePageFragment : Fragment() {
 
     val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: FragmentHomePageBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,19 +47,21 @@ class HomePageFragment : Fragment() {
 
         binding.recyclerFoods.layoutManager = GridLayoutManager(context, 2)
 
-        viewModel.getModels().let { foods ->
-            val foodItems = foods.map { CollectiveModel.Food(it) }
-            val collectiveAdapter = CollectiveAdapter(items = foodItems,
-                onCategoryClick = { },
-                onFoodClick = {
-                    val bundle = Bundle().apply {
-                        putParcelable("food", it)
-                    }
-                    findNavController().navigate(R.id.foodDetailFragment, bundle)
-                })
-            binding.recyclerFoods.adapter = collectiveAdapter
-            context?.let { ItemDecoration(it, spanCount = 2, spacingDp = 17) }
-                ?.let { binding.recyclerFoods.addItemDecoration(it) }
+        lifecycleScope.launch {
+            viewModel.getFoodsModelStateFlow().collect { foods ->
+                val foodItems = foods.map { CollectiveModel.Food(it) }
+                val collectiveAdapter = CollectiveAdapter(items = foodItems,
+                    onCategoryClick = { },
+                    onFoodClick = {
+                        val bundle = Bundle().apply {
+                            putParcelable("food", it)
+                        }
+                        findNavController().navigate(R.id.foodDetailFragment, bundle)
+                    })
+                binding.recyclerFoods.adapter = collectiveAdapter
+                context?.let { ItemDecoration(it, spanCount = 2, spacingDp = 17) }
+                    ?.let { binding.recyclerFoods.addItemDecoration(it) }
+            }
         }
 
         binding.filterButton.setOnClickListener {
