@@ -11,21 +11,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
+import com.example.study.data.FoodsModelResponse
 import com.example.study.databinding.ItemCategoryConstraintBinding
 import com.example.study.databinding.ItemFoodsConstraintBinding
+import com.example.study.domain.FoodsUIModel
 import com.example.study.model.CategoryModel
-import com.example.study.model.FoodsModel
 
 
 sealed class CollectiveModel {
     data class Category(val categoryModel: CategoryModel) : CollectiveModel()
-    data class Food(val foodsModel: FoodsModel) : CollectiveModel()
+    data class Food(val foodsModel: FoodsUIModel) : CollectiveModel()
 }
 
 class CollectiveAdapter(
     private val items: List<CollectiveModel>,
     private val onCategoryClick: (Int) -> Unit,
-    private val onFoodClick: ((FoodsModel) -> Unit)? = null
+    private val onFoodClick: ((FoodsUIModel) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -55,18 +56,11 @@ class CollectiveAdapter(
     class FoodViewHolder(private val binding: ItemFoodsConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        /*private fun calculateDiscount(foodPrice: Double): Double {
-            val discount = 0.10
-            return foodPrice * (1 - discount)
-        }*/
-
-        fun bind(foodsModel: FoodsModel, onFoodClick: (FoodsModel) -> Unit) {
+        fun bind(foodsModel: FoodsUIModel, onFoodClick: (FoodsUIModel) -> Unit) {
             binding.foodRank.text = foodsModel.foodRank.toString()
-            binding.foodImage.setImageResource(foodsModel.foodImage)
+            foodsModel.foodImage.let { binding.foodImage.setImageResource(it) }
             binding.foodName.text = foodsModel.foodName
             binding.foodDetail.text = foodsModel.foodDetail
-
-            val discountedPrice = foodsModel.getDiscountedPrice()
 
             val spannableString = SpannableString(foodsModel.foodPrice.toString())
             spannableString.setSpan(
@@ -77,10 +71,20 @@ class CollectiveAdapter(
             )
             binding.foodPrice.text = spannableString
 
+            val spannableStringDiscount = SpannableString(foodsModel.discountPrice.toString())
+            spannableString.setSpan(
+                StyleSpan(Typeface.BOLD),
+                0,
+                spannableString.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            binding.foodPriceDiscount.text = spannableStringDiscount
+
             if (foodsModel.discount) {
+                binding.discount.visibility = View.VISIBLE
+                binding.foodPrice.setTextColor(Color.GRAY)
                 binding.foodPrice.paintFlags = binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 binding.foodPriceDiscount.visibility = View.VISIBLE
-                binding.foodPriceDiscount.text = discountedPrice.toString()
             } else {
                 binding.discount.visibility = View.GONE
             }
@@ -137,5 +141,4 @@ class CollectiveAdapter(
     }
 
     override fun getItemCount(): Int = items.size
-
 }

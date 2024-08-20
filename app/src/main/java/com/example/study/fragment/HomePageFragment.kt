@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,13 +16,18 @@ import com.example.study.databinding.FragmentHomePageBinding
 import com.example.study.ItemDecoration
 import com.example.study.adapter.CollectiveAdapter
 import com.example.study.adapter.CollectiveModel
-import com.example.study.model.FoodsModel
-import kotlinx.coroutines.flow.StateFlow
+import com.example.study.data.ProductRepository
+import com.example.study.domain.mapper.ProductMapper
+import com.example.study.domain.usecase.ProductUseCase
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class HomePageFragment : Fragment() {
 
-    val viewModel: MainViewModel by viewModels()
+    //val viewModel: MainViewModel by viewModels()
+
+    private lateinit var viewModel: MainViewModel
+
 
     private lateinit var binding: FragmentHomePageBinding
 
@@ -33,7 +37,10 @@ class HomePageFragment : Fragment() {
     ): View {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
-        //viewModel.fetchData()
+        val repository = ProductRepository(requireContext())
+        val mapper = ProductMapper()
+        val useCase = ProductUseCase(repository, mapper)
+        viewModel = MainViewModel(useCase)
 
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -49,12 +56,14 @@ class HomePageFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.getFoodsModelStateFlow().collect { foods ->
+                val gson = Gson()
                 val foodItems = foods.map { CollectiveModel.Food(it) }
                 val collectiveAdapter = CollectiveAdapter(items = foodItems,
                     onCategoryClick = { },
                     onFoodClick = {
+                        val foodJson = gson.toJson(it)
                         val bundle = Bundle().apply {
-                            putParcelable("food", it)
+                            putString("foodJson", foodJson)
                         }
                         findNavController().navigate(R.id.foodDetailFragment, bundle)
                     })
@@ -67,8 +76,6 @@ class HomePageFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_foodDetailFragment)
         }
-
-
         return binding.root
     }
 

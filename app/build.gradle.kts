@@ -40,14 +40,24 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.gson)
 
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.android.v2461)
+    kapt (libs.hilt.compiler)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v283)

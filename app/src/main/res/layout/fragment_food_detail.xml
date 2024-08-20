@@ -96,7 +96,32 @@
                 app:layout_constraintTop_toTopOf="@+id/food_rank" />
 
             <TextView
+                android:id="@+id/dollar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="$"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_name" />
+
+            <TextView
                 android:id="@+id/food_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="22"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@id/dollar"
+                app:layout_constraintTop_toBottomOf="@+id/food_name" />
+
+            <TextView
+                android:id="@+id/discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -104,7 +129,9 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                android:layout_marginStart="6dp"
+                app:layout_constraintStart_toEndOf="@id/food_price"
                 app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -274,7 +301,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/size_container" />
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/food_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -295,7 +322,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text" />
+                app:layout_constraintTop_toBottomOf="@+id/food_detail" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

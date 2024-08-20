@@ -3,7 +3,7 @@ package com.example.study
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.study.databinding.ActivityFoodDetailConstraintBinding
-import com.example.study.model.FoodsModel
+import com.example.study.data.FoodsModelResponse
 
 class foodDetail : AppCompatActivity() {
 
@@ -14,7 +14,7 @@ class foodDetail : AppCompatActivity() {
         binding = ActivityFoodDetailConstraintBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val food = intent.getParcelableExtra<FoodsModel>("food")
+        /*val food = intent.getParcelableExtra<FoodsModelResponse>("food")
         if (food != null) {
 
             binding.foodImg.setImageResource(food.foodImage)
@@ -22,6 +22,6 @@ class foodDetail : AppCompatActivity() {
             binding.foodRank.text = food.foodRank.toString()
             binding.foodPrice.text = food.foodPrice.toString()
 
-        }
+        }*/
     }
 }

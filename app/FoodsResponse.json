@@ -1,0 +1,43 @@
+[{
+  "foodId": 1,
+  "foodName": "Chicken burger",
+  "foodDetail": "200 gr chicken + cheese Lettuce + tomato",
+  "foodPrice": 26.00,
+  "foodRank": 4.2,
+  "discount": true
+}, {
+  "foodId": 2,
+  "foodName": "Cheese burger",
+  "foodDetail": "200 gr meat + Lettuce cheese + onion + tomato",
+  "foodPrice": 32.00,
+  "foodRank": 4.7,
+  "discount": false
+}, {
+  "foodId": 3,
+  "foodName": "Chicken burger",
+  "foodDetail": "200 gr chicken + cheese Lettuce + tomato",
+  "foodPrice": 26.00,
+  "foodRank": 4.8,
+  "discount": false
+}, {
+  "foodId": 4,
+  "foodName": "Chicken burger",
+  "foodDetail": "200 gr chicken + cheese Lettuce + tomato",
+  "foodPrice": 26.00,
+  "foodRank": 4.8,
+  "discount": false
+}, {
+  "foodId": 5,
+  "foodName": "Cheese burger",
+  "foodDetail": "200 gr meat + Lettuce cheese + onion + tomato",
+  "foodPrice": 32.00,
+  "foodRank": 4.8,
+  "discount": false
+}, {
+  "foodId": 6,
+  "foodName": "Cheese burger",
+  "foodDetail": "200 gr meat + Lettuce cheese + onion + tomato",
+  "foodPrice": 32.00,
+  "foodRank": 4.8,
+  "discount": false
+}]

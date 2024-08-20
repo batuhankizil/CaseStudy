@@ -10,14 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.databinding.ItemFoodsConstraintBinding
-import com.example.study.model.FoodsModel
+import com.example.study.data.FoodsModelResponse
 
-class FoodsAdapter(private val foodsList: List<FoodsModel>) :
+class FoodsAdapter(private val foodsList: List<FoodsModelResponse>) :
     RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemFoodsConstraintBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    var onItemClick: ((FoodsModel) -> Unit)? = null
+    var onItemClick: ((FoodsModelResponse) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -29,7 +29,7 @@ class FoodsAdapter(private val foodsList: List<FoodsModel>) :
         val foods = foodsList[position]
 
         holder.binding.foodRank.text = foods.foodRank.toString()
-        holder.binding.foodImage.setImageResource(foods.foodImage)
+        //holder.binding.foodImage.setImageResource(foods.foodImage)
         holder.binding.foodName.text = foods.foodName
         holder.binding.foodDetail.text = foods.foodDetail
         holder.binding.foodPrice.text = foods.foodPrice.toString()
@@ -39,13 +39,13 @@ class FoodsAdapter(private val foodsList: List<FoodsModel>) :
         holder.binding.foodPrice.text = spannableString
 
 
-        if (foods.discount) {
+        /*if (foods.discount) {
             holder.binding.discount.visibility = View.VISIBLE
             holder.binding.foodPriceDiscount.visibility = View.VISIBLE
             holder.binding.foodPrice.paintFlags = holder.binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             holder.binding.discount.visibility = View.GONE
-        }
+        }*/
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(foods)
