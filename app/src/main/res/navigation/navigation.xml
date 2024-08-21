@@ -26,4 +26,13 @@
             android:name="foodName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.study.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
 </navigation>

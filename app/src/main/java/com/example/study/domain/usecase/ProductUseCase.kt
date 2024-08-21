@@ -15,30 +15,5 @@ class ProductUseCase @Inject constructor(
         val response = repository.fetchFoods()
         return response
     }
-    // Repository kullanarak FoodsModeli al. Sonra hesaplamaları yaparak FoodsUIModele dönüştür. FoodsModeli mapper kullanarak FoodsUIModele dönüştür.
-    /*fun calculateDiscountedPrice(foodsModel: FoodsModelResponse): Double {
-        val discountRate = 0.10
-        val originalPrice = foodsModel.foodPrice ?: 0.0
-        return if (foodsModel.discount == true) {
-            originalPrice * (1 - discountRate)
-        } else
-            originalPrice
-    }
-
-    fun getFoodDisplayData(foodsModel: FoodsModelResponse): FoodDisplayData {
-        val discountedPrice = calculateDiscountedPrice(foodsModel)
-        return FoodDisplayData(
-            salePrice = foodsModel.foodPrice!!,
-            discountedPrice = discountedPrice,
-            isDiscounted = true
-        )
-    }
-
-    data class FoodDisplayData(
-        val salePrice: Double,
-        val discountedPrice: Double,
-        val isDiscounted: Boolean
-    )*/
-
 
 }

@@ -6,7 +6,11 @@ import com.example.study.domain.FoodsUIModel
 
 class ProductMapper {
 
-    fun mapFromResponse(foodsModel: FoodsModelResponse): FoodsUIModel {
+    fun mapFromResponseList(responseList: List<FoodsModelResponse>): List<FoodsUIModel> {
+        return responseList.map { mapFromResponse(it) }
+    }
+
+    private fun mapFromResponse(foodsModel: FoodsModelResponse): FoodsUIModel {
         val oldPrice = foodsModel.foodPrice ?: 0.0
         val hasDiscount = foodsModel.discount ?: false
         val discountRate = 0.10
@@ -28,8 +32,6 @@ class ProductMapper {
         )
     }
 
-    fun mapFromResponseList(responseList: List<FoodsModelResponse>): List<FoodsUIModel> {
-        return responseList.map { mapFromResponse(it) }
-    }
+
 
 }

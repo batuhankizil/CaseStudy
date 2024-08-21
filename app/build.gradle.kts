@@ -57,6 +57,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.android.v2461)
+    implementation(libs.androidx.annotation)
     kapt (libs.hilt.compiler)
 
     // ViewModel

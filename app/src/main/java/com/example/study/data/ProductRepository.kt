@@ -14,12 +14,6 @@ class ProductRepository @Inject constructor(
 
     private val gson = Gson()
 
-    //json değerinin convort ederek FoodsModel olarak dönülmesi
-    //json to responseModel
-    //private val productUseCase = ProductUseCase()
-
-    //val jsonDataFile = File("FoodsResponse.json")
-
     fun fetchFoods(): List<FoodsModelResponse> {
         val json = loadJsonFromAssets("foodsResponse.json")
 
