@@ -3,8 +3,12 @@ package com.example.study.domain.mapper
 import com.example.study.R
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.FoodsUIModel
+import com.example.study.domain.ProductDecider
+import javax.inject.Inject
 
-class ProductMapper {
+class ProductMapper @Inject constructor(
+    private val productDecider: ProductDecider
+){
 
     fun mapFromResponseList(responseList: List<FoodsModelResponse>): List<FoodsUIModel> {
         return responseList.map { mapFromResponse(it) }
@@ -13,12 +17,6 @@ class ProductMapper {
     private fun mapFromResponse(foodsModel: FoodsModelResponse): FoodsUIModel {
         val oldPrice = foodsModel.foodPrice ?: 0.0
         val hasDiscount = foodsModel.discount ?: false
-        val discountRate = 0.10
-        val discountedPrice = if (hasDiscount) {
-            oldPrice * (1 - discountRate)
-        } else {
-            oldPrice
-        }
 
         return FoodsUIModel(
             foodRank = foodsModel.foodRank ?: 0.0,
@@ -28,7 +26,7 @@ class ProductMapper {
             foodPrice = foodsModel.foodPrice ?: 0.0,
             id = foodsModel.id ?: 0,
             discount = hasDiscount,
-            discountPrice = discountedPrice
+            discountPrice = productDecider.decideDiscountPrice(oldPrice, hasDiscount)
         )
     }
 

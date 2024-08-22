@@ -1,10 +1,13 @@
 [versions]
 activityVersion = "1.9.0"
 agp = "8.5.0"
+androidxTruth = "1.6.0"
 fragmentKtx = "1.8.2"
+googleTruth = "1.1.2"
 gson = "2.11.0"
 hiltAndroid = "2.51.1"
 hiltAndroidVersion = "2.46.1"
+junitJunit = "1"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -21,6 +24,11 @@ constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
 orgJetbrainsKotlinPluginParcelizeGradlePlugin = "2.0.0"
 annotation = "1.6.0"
+testng = "6.9.6"
+truth = "1.4.4"
+junitJunitVersion = "4.12"
+truthAndroid = "2.0.0"
+truthVersion = "1.0.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityVersion" }
@@ -35,6 +43,7 @@ androidx-lifecycle-viewmodel-ktx-v283 = { module = "androidx.lifecycle:lifecycle
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycleLivedataKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+androidx-truth = { module = "androidx.test.ext:truth", version.ref = "androidxTruth" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-v2461 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
@@ -43,6 +52,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-v1 = { module = "junit:junit", version.ref = "junitJunit" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -50,6 +60,12 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 org-jetbrains-kotlin-plugin-parcelize-gradle-plugin = { module = "org.jetbrains.kotlin.plugin.parcelize:org.jetbrains.kotlin.plugin.parcelize.gradle.plugin", version.ref = "orgJetbrainsKotlinPluginParcelizeGradlePlugin" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+testng = { group = "org.testng", name = "testng", version.ref = "testng" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunitVersion" }
+truth-android = { module = "com.pkware.truth-android:truth-android", version.ref = "truthAndroid" }
+truth-v101 = { module = "com.google.truth:truth", version.ref = "truthVersion" }
+truth-v112 = { module = "com.google.truth:truth", version.ref = "googleTruth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

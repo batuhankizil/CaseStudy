@@ -17,6 +17,7 @@ import com.example.study.ItemDecoration
 import com.example.study.adapter.CollectiveAdapter
 import com.example.study.adapter.CollectiveModel
 import com.example.study.data.ProductRepository
+import com.example.study.domain.ProductDecider
 import com.example.study.domain.mapper.ProductMapper
 import com.example.study.domain.usecase.ProductUseCase
 import com.google.gson.Gson
@@ -38,7 +39,7 @@ class HomePageFragment : Fragment() {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
         val repository = ProductRepository(requireContext())
-        val mapper = ProductMapper()
+        val mapper = ProductMapper(ProductDecider())
         val useCase = ProductUseCase(repository, mapper)
         viewModel = MainViewModel(useCase)
 

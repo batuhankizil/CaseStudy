@@ -46,7 +46,20 @@ android {
     }
 }
 
+
 dependencies {
+
+
+    implementation(libs.junit.junit)
+    testImplementation(libs.junit.v1)
+
+    testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
+
+    /*androidTestImplementation(libs.androidx.truth)
+    testImplementation(libs.androidx.truth)
+    androidTestImplementation(libs.truth.android)*/
+
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.gson)
@@ -75,8 +88,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    //testImplementation(libs.junit)
+    //androidTestImplementation(libs.androidx.junit)
+    //androidTestImplementation(libs.androidx.espresso.core)
 
 }

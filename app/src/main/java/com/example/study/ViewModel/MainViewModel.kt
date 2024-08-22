@@ -9,6 +9,7 @@ import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.model.CategoryModel
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.FoodsUIModel
+import com.example.study.domain.ProductDecider
 import com.example.study.domain.mapper.ProductMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,7 @@ class MainViewModel @Inject constructor(
     private val productUseCase: ProductUseCase
 ) : ViewModel() {
 
-    private val productMapper = ProductMapper()
+    private val productMapper = ProductMapper(ProductDecider())
 
 
     private val _categoryModel = MutableLiveData<List<CategoryModel>>()
