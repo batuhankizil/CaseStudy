@@ -2,11 +2,14 @@
 activityVersion = "1.9.0"
 agp = "8.5.0"
 androidxTruth = "1.6.0"
+daggerCompiler = "2.43"
 fragmentKtx = "1.8.2"
+googleHiltAndroid = "2.51.1"
 googleTruth = "1.1.2"
 gson = "2.11.0"
 hiltAndroid = "2.51.1"
-hiltAndroidVersion = "2.46.1"
+hiltAndroidCompiler = "2.51.1"
+hiltAndroidVersion = "2.51.1"
 junitJunit = "1"
 kotlin = "1.9.0"
 coreKtx = "1.10.1"
@@ -44,8 +47,13 @@ androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecyc
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 androidx-truth = { module = "androidx.test.ext:truth", version.ref = "androidxTruth" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "hiltAndroid" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltAndroidVersion" }
+dagger-compiler-v243 = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android-v244 = { module = "com.google.dagger:hilt-android", version.ref = "googleHiltAndroid" }
 hilt-android-v2461 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroidVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -69,5 +77,5 @@ truth-v112 = { module = "com.google.truth:truth", version.ref = "googleTruth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.0.20" }
 

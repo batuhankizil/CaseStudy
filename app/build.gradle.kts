@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -49,7 +51,6 @@ android {
 
 dependencies {
 
-
     implementation(libs.junit.junit)
     testImplementation(libs.junit.v1)
 
@@ -69,9 +70,9 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.hilt.android)
-    implementation(libs.hilt.android.v2461)
-    implementation(libs.androidx.annotation)
     kapt (libs.hilt.compiler)
+
+    implementation(libs.androidx.annotation)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v283)

@@ -1,15 +1,12 @@
 package com.example.study.data
 
 import android.content.Context
-import com.example.study.domain.usecase.ProductUseCase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.File
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
     private val context: Context,
-
 ){
 
     private val gson = Gson()

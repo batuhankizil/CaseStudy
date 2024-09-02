@@ -12,7 +12,9 @@ import com.example.study.databinding.FragmentFoodDetailBinding
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.FoodsUIModel
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FoodDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentFoodDetailBinding
@@ -41,27 +43,11 @@ class FoodDetailFragment : Fragment() {
             binding.discount.text = foodsModel.discountPrice.toString()
             binding.foodPrice.text = foodsModel.foodPrice.toString()
             binding.foodPrice.setTextColor(Color.GRAY)
-            binding.foodPrice.paintFlags = binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.foodPrice.paintFlags =
+                binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             binding.foodPrice.text = foodsModel.foodPrice.toString()
         }
-
-
-        /*val food = arguments?.getParcelable<FoodsModelResponse>("food")
-        if (food != null) {
-
-            food.foodImage?.let { binding.foodImg.setImageResource(it) }
-            binding.foodName.text = food.foodName
-            binding.foodRank.text = food.foodRank.toString()
-
-            /*if (food.discount == true) {
-                val discountedPrice = food.getDiscountedPrice()
-                binding.foodPrice.text = "$ " + discountedPrice.toString()
-            } else {
-                binding.foodPrice.text = "$ " + food.foodPrice.toString()
-            }*/
-
-        }*/
 
         return binding.root
     }

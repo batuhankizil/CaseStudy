@@ -1,5 +1,6 @@
 package com.example.study.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,22 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.study.R
 import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.model.CategoryModel
-import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.FoodsUIModel
-import com.example.study.domain.ProductDecider
-import com.example.study.domain.mapper.ProductMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val productUseCase: ProductUseCase
 ) : ViewModel() {
-
-    private val productMapper = ProductMapper(ProductDecider())
-
 
     private val _categoryModel = MutableLiveData<List<CategoryModel>>()
     fun getCategoryModelLiveData(): LiveData<List<CategoryModel>> = _categoryModel
@@ -37,12 +33,13 @@ class MainViewModel @Inject constructor(
 
     private fun loadFoodItems() {
         viewModelScope.launch {
-            val foods = productUseCase.fetchProducts()
-            val uiModels = productMapper.mapFromResponseList(foods)
-            _foodItems.value = uiModels
+            _foodItems.value = productUseCase.fetchProducts()
         }
     }
 
+    fun log() {
+        Log.d("batu", "test")
+    }
 
 
     /*private fun getModels() {
