@@ -1,14 +1,18 @@
 package com.example.study.ViewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.study.R
+import com.example.study.adapter.CollectiveModel
 import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.model.CategoryModel
 import com.example.study.domain.FoodsUIModel
+import com.example.study.retrofit.Comment
+import com.example.study.retrofit.DataRepository
+import com.example.study.retrofit.Post
+import com.example.study.sharedPreferences.LoginDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val productUseCase: ProductUseCase
+    private val productUseCase: ProductUseCase,
+    private val loginDataSource: LoginDataSource,
+    private val dataRepository: DataRepository
 ) : ViewModel() {
 
     private val _categoryModel = MutableLiveData<List<CategoryModel>>()
@@ -26,10 +32,35 @@ class MainViewModel @Inject constructor(
     private val _foodItems = MutableStateFlow<List<FoodsUIModel>>(emptyList())
     fun getFoodsModelStateFlow(): Flow<List<FoodsUIModel>> = _foodItems
 
+    private val _username = MutableLiveData<String?>()
+    val username: LiveData<String?> get() = _username
+
+    private val _posts = MutableLiveData<List<CollectiveModel>>()
+    fun getPostsWithComments(): LiveData<List<CollectiveModel>> = _posts
+
     init {
         fetchCategoryModel()
         loadFoodItems()
+        loadUsername()
+        fetchPosts()
     }
+
+    private fun fetchPosts() {
+        viewModelScope.launch {
+            val posts = dataRepository.getPosts()
+            val comments = dataRepository.getComments()
+
+            val commentsByPostId = comments.groupBy { it.postId }
+
+            val collectiveItems = posts.map { post ->
+                val postComments = commentsByPostId[post.id]?.firstOrNull()
+                CollectiveModel.Post(post, postComments ?: Comment(post.id, "No comments", post.id))
+            }
+
+            _posts.value = collectiveItems
+        }
+    }
+
 
     private fun loadFoodItems() {
         viewModelScope.launch {
@@ -37,21 +68,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun log() {
-        Log.d("batu", "test")
+    private fun loadUsername() {
+        _username.value = loginDataSource.userName
     }
-
-
-    /*private fun getModels() {
-        _foodItems.value = listOf(
-            FoodsModelResponse(4.8, R.drawable.chicken_burger, "Chicken burger", "200 gr chicken + cheese Lettuce + tomato", 28.00, 1, true),
-            FoodsModelResponse(4.5, R.drawable.chese_burger, "Cheese burger", "200 gr meat + Lettuce cheese + onion + tomato", 25.00, 2, false),
-            FoodsModelResponse(4.3, R.drawable.chicken_burger, "Chicken burger", "200 gr chicken + cheese Lettuce + tomato", 25.00, 3, false),
-            FoodsModelResponse(4.3, R.drawable.chicken_burger, "Chicken burger", "200 gr chicken + cheese Lettuce + tomato", 25.00, 4, false),
-            FoodsModelResponse(4.3, R.drawable.chese_burger, "Cheese burger", "200 gr chicken + cheese Lettuce + tomato", 25.00, 5, false),
-            FoodsModelResponse(4.3, R.drawable.chese_burger, "Cheese burger", "200 gr chicken + cheese Lettuce + tomato", 25.00, 6, false)
-        )
-    }*/
 
     private fun fetchCategoryModel() {
         _categoryModel.value = buildList {

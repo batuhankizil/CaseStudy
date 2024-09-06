@@ -51,21 +51,20 @@ android {
 
 dependencies {
 
+
+    // retrofit
+    implementation(libs.retrofit)
+    // gson converter
+    implementation(libs.converter.gson)
+
     implementation(libs.junit.junit)
     testImplementation(libs.junit.v1)
 
     testImplementation(libs.truth)
     androidTestImplementation(libs.truth)
 
-    /*androidTestImplementation(libs.androidx.truth)
-    testImplementation(libs.androidx.truth)
-    androidTestImplementation(libs.truth.android)*/
-
-
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.gson)
-
-
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
@@ -73,8 +72,6 @@ dependencies {
     kapt (libs.hilt.compiler)
 
     implementation(libs.androidx.annotation)
-
-    // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v283)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -89,8 +86,5 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    //testImplementation(libs.junit)
-    //androidTestImplementation(libs.androidx.junit)
-    //androidTestImplementation(libs.androidx.espresso.core)
 
 }

@@ -11,16 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
-import com.example.study.data.FoodsModelResponse
 import com.example.study.databinding.ItemCategoryConstraintBinding
 import com.example.study.databinding.ItemFoodsConstraintBinding
+import com.example.study.databinding.ItemTitleBinding
 import com.example.study.domain.FoodsUIModel
 import com.example.study.model.CategoryModel
+import com.example.study.retrofit.Comment
+import com.example.study.retrofit.Post
 
 
 sealed class CollectiveModel {
     data class Category(val categoryModel: CategoryModel) : CollectiveModel()
     data class Food(val foodsModel: FoodsUIModel) : CollectiveModel()
+    data class Post(val post: com.example.study.retrofit.Post, val comment: Comment) : CollectiveModel()
 }
 
 class CollectiveAdapter(
@@ -32,7 +35,27 @@ class CollectiveAdapter(
     companion object {
         private const val VIEW_TYPE_FOOD = 0
         private const val VIEW_TYPE_CATEGORY = 1
+        private const val VIEW_TYPE_POST = 2
     }
+
+    class PostViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(post: Post, comment: Comment) {
+            binding.title.text = post.title
+            binding.comment.text = comment.text
+        }
+    }
+
+    /*class RetrofitViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(post: Post) {
+            binding.title.text = post.title
+        }
+    }*/
+
+    /*class CommentViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(comment: Comment) {
+            binding.comment.text = comment.text
+        }
+    }*/
 
     class CategoryViewHolder(private val binding: ItemCategoryConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -113,6 +136,15 @@ class CollectiveAdapter(
                 CategoryViewHolder(binding)
             }
 
+            VIEW_TYPE_POST -> {
+                val binding = ItemTitleBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                PostViewHolder(binding)
+            }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -130,6 +162,8 @@ class CollectiveAdapter(
                 item.categoryModel,
                 onCategoryClick
             )
+
+            is CollectiveModel.Post -> (holder as PostViewHolder).bind(item.post, item.comment)
         }
     }
 
@@ -137,6 +171,7 @@ class CollectiveAdapter(
         return when (items[position]) {
             is CollectiveModel.Food -> VIEW_TYPE_FOOD
             is CollectiveModel.Category -> VIEW_TYPE_CATEGORY
+            is CollectiveModel.Post -> VIEW_TYPE_POST
         }
     }
 

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -27,8 +29,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomePageFragment : Fragment() {
 
-    val viewModel: MainViewModel by activityViewModels()
+    val viewModel: MainViewModel by viewModels()
     private lateinit var binding: FragmentHomePageBinding
+
     @Inject
     lateinit var loginDataSource: LoginDataSource
 
@@ -39,11 +42,12 @@ class HomePageFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
-        //viewmodele al
-        val username = loginDataSource.userName
-        if (username != null) {
-            binding.username.text = "Welcome, " + username
-        }
+
+        viewModel.username.observe(viewLifecycleOwner, Observer { username ->
+            if (username != null) {
+                binding.username.text = "Welcome, $username"
+            }
+        })
 
         binding.logout.setOnClickListener {
             loginDataSource.logout()
@@ -52,8 +56,6 @@ class HomePageFragment : Fragment() {
                 .build()
             findNavController().navigate(R.id.loginFragment, null, navOptions)
         }
-
-        viewModel.log()
 
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -86,7 +88,7 @@ class HomePageFragment : Fragment() {
         }
 
         binding.filterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homePageFragment_to_foodDetailFragment)
+            findNavController().navigate(R.id.action_homePageFragment_to_retrofitFragment)
         }
 
         return binding.root
