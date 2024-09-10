@@ -19,6 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner = "com.example.android.dagger.CustomTestRunner"
+
     }
 
     buildTypes {
@@ -51,6 +53,15 @@ android {
 
 dependencies {
 
+    testImplementation (libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+
+    testImplementation(libs.mockk)
+
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
 
     // retrofit
     implementation(libs.retrofit)
@@ -58,6 +69,7 @@ dependencies {
     implementation(libs.converter.gson)
 
     implementation(libs.junit.junit)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit.v1)
 
     testImplementation(libs.truth)

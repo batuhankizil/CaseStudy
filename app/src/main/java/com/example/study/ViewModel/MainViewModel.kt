@@ -1,7 +1,5 @@
 package com.example.study.ViewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.study.R
@@ -11,7 +9,6 @@ import com.example.study.model.CategoryModel
 import com.example.study.domain.FoodsUIModel
 import com.example.study.retrofit.Comment
 import com.example.study.retrofit.DataRepository
-import com.example.study.retrofit.Post
 import com.example.study.sharedPreferences.LoginDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,17 +23,17 @@ class MainViewModel @Inject constructor(
     private val dataRepository: DataRepository
 ) : ViewModel() {
 
-    private val _categoryModel = MutableLiveData<List<CategoryModel>>()
-    fun getCategoryModelLiveData(): LiveData<List<CategoryModel>> = _categoryModel
+    private val _categoryModel = MutableStateFlow<List<CategoryModel>>(emptyList())
+    fun getCategoryModelStateFlow(): Flow<List<CategoryModel>> = _categoryModel
 
     private val _foodItems = MutableStateFlow<List<FoodsUIModel>>(emptyList())
     fun getFoodsModelStateFlow(): Flow<List<FoodsUIModel>> = _foodItems
 
-    private val _username = MutableLiveData<String?>()
-    val username: LiveData<String?> get() = _username
+    private val _username = MutableStateFlow<String?>(null)
+    val username: Flow<String?> get() = _username
 
-    private val _posts = MutableLiveData<List<CollectiveModel>>()
-    fun getPostsWithComments(): LiveData<List<CollectiveModel>> = _posts
+    private val _posts = MutableStateFlow<List<CollectiveModel>>(emptyList())
+    fun getPostModelStateFlow(): Flow<List<CollectiveModel>> = _posts
 
     init {
         fetchCategoryModel()
@@ -81,7 +78,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun updateCategoryList(selectedItemId: Int) {
-        _categoryModel.value = _categoryModel.value?.map {
+        _categoryModel.value = _categoryModel.value.map {
             if (it.id == selectedItemId) {
                 it.copy(isSelected = true)
             } else {

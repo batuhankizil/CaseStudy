@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -43,11 +41,13 @@ class HomePageFragment : Fragment() {
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
 
-        viewModel.username.observe(viewLifecycleOwner, Observer { username ->
-            if (username != null) {
-                binding.username.text = "Welcome, $username"
+        lifecycleScope.launch {
+            viewModel.username.collect { username ->
+                if (username != null) {
+                    binding.username.text = "Welcome, $username"
+                }
             }
-        })
+        }
 
         binding.logout.setOnClickListener {
             loginDataSource.logout()
@@ -59,11 +59,15 @@ class HomePageFragment : Fragment() {
 
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        viewModel.getCategoryModelLiveData().observe(viewLifecycleOwner) { categories ->
-            val categoryItems = categories.map { CollectiveModel.Category(it) }
-            val adapter = CollectiveAdapter(items = categoryItems,
-                onCategoryClick = { id -> viewModel.updateCategoryList(id) })
-            binding.recyclerCategory.adapter = adapter
+
+        lifecycleScope.launch {
+            viewModel.getCategoryModelStateFlow().collect {
+                    categories ->
+                val categoryItems = categories.map { CollectiveModel.Category(it) }
+                val adapter = CollectiveAdapter(items = categoryItems,
+                    onCategoryClick = { id -> viewModel.updateCategoryList(id) })
+                binding.recyclerCategory.adapter = adapter
+            }
         }
 
         binding.recyclerFoods.layoutManager = GridLayoutManager(context, 2)

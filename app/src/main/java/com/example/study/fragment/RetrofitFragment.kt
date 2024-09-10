@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.study.R
 import com.example.study.ViewModel.MainViewModel
 import com.example.study.adapter.CollectiveAdapter
-import com.example.study.adapter.CollectiveModel
 import com.example.study.databinding.FragmentRetrofitBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RetrofitFragment : Fragment() {
@@ -30,15 +30,15 @@ class RetrofitFragment : Fragment() {
         binding.recyclerRetrofit.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        viewModel.getPostsWithComments().observe(viewLifecycleOwner) { posts ->
-
-                val adapter = CollectiveAdapter(items = posts,
-                    onCategoryClick = {})
+        lifecycleScope.launch {
+            viewModel.getPostModelStateFlow().collect { posts ->
+                val adapter = CollectiveAdapter(
+                    items = posts,
+                    onCategoryClick = {}
+                )
                 binding.recyclerRetrofit.adapter = adapter
-
+            }
         }
-
-
 
         return binding.root
     }

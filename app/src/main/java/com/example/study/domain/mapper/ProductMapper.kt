@@ -14,9 +14,13 @@ class ProductMapper @Inject constructor(
         return responseList.map { mapFromResponse(it) }
     }
 
-    private fun mapFromResponse(foodsModel: FoodsModelResponse): FoodsUIModel {
+    fun mapFromResponse(foodsModel: FoodsModelResponse): FoodsUIModel {
         val oldPrice = foodsModel.foodPrice ?: 0.0
         val hasDiscount = foodsModel.discount ?: false
+
+        productDecider.decideDiscountPrice(oldPrice, hasDiscount)
+
+
 
         return FoodsUIModel(
             foodRank = foodsModel.foodRank ?: 0.0,

@@ -7,21 +7,28 @@ import org.junit.Test
 
 class ProductDeciderTest {
 
+
     @Test
-    fun `discount available`() {
+    fun `decideDiscountPrice should show the reduced price when a discount is present`() {
+        // Given
         val decider = ProductDecider()
 
+        // When
         val salePrice = decider.decideDiscountPrice(100.0, true)
 
+        // Then
         assertThat(salePrice).isEqualTo(90)
     }
 
     @Test
-    fun `discount not available`() {
+    fun `decideDiscountPrice should return orginal price when discount is not available`() {
+        // Given
         val decider = ProductDecider()
 
+        // When
         val salePrice = decider.decideDiscountPrice(100.0, false)
 
+        // Then
         assertThat(salePrice).isEqualTo(salePrice)
     }
 
