@@ -18,12 +18,15 @@ import com.example.study.domain.FoodsUIModel
 import com.example.study.model.CategoryModel
 import com.example.study.retrofit.Comment
 import com.example.study.retrofit.Post
+import com.example.study.viewState.CategoryViewState
+import com.example.study.viewState.FoodViewState
 
 
 sealed class CollectiveModel {
     data class Category(val categoryModel: CategoryModel) : CollectiveModel()
     data class Food(val foodsModel: FoodsUIModel) : CollectiveModel()
-    data class Post(val post: com.example.study.retrofit.Post, val comment: Comment) : CollectiveModel()
+    data class Post(val post: com.example.study.retrofit.Post, val comment: Comment) :
+        CollectiveModel()
 }
 
 class CollectiveAdapter(
@@ -38,39 +41,35 @@ class CollectiveAdapter(
         private const val VIEW_TYPE_POST = 2
     }
 
-    class PostViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PostViewHolder(private val binding: ItemTitleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(post: Post, comment: Comment) {
             binding.title.text = post.title
             binding.comment.text = comment.text
         }
     }
 
-    /*class RetrofitViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(post: Post) {
-            binding.title.text = post.title
-        }
-    }*/
-
-    /*class CommentViewHolder(private val binding: ItemTitleBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: Comment) {
-            binding.comment.text = comment.text
-        }
-    }*/
-
     class CategoryViewHolder(private val binding: ItemCategoryConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(categoryModel: CategoryModel, onCategoryClick: (Int) -> Unit) {
+        fun bind(viewState: CategoryViewState, onCategoryClick: (Int) -> Unit) {
+            val categoryModel = viewState.categoryModel
+
             binding.categoryName.text = categoryModel.categoryName
             binding.icBurger.setImageResource(categoryModel.categoryIcon)
 
             binding.root.setBackgroundResource(R.drawable.category_item_background)
 
-            if (categoryModel.isSelected) {
-                binding.categoryName.setTextColor(Color.WHITE)
+
+            binding.categoryName.setTextColor(viewState.getTextColor())
+            viewState.getBackgroundResource()
+                ?.let { binding.categoryItem.setBackgroundResource(it) }
+
+            /*if (categoryModel.isSelected) {
+                //binding.categoryName.setTextColor(Color.WHITE)
                 binding.categoryItem.setBackgroundResource(R.drawable.button_add_to_cart)
             } else {
-                binding.categoryName.setTextColor(Color.BLACK)
-            }
+                //binding.categoryName.setTextColor(Color.BLACK)
+            }*/
 
             binding.root.setOnClickListener { onCategoryClick(categoryModel.id) }
         }
@@ -79,7 +78,9 @@ class CollectiveAdapter(
     class FoodViewHolder(private val binding: ItemFoodsConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(foodsModel: FoodsUIModel, onFoodClick: (FoodsUIModel) -> Unit) {
+        fun bind(viewState: FoodViewState, onFoodClick: (FoodsUIModel) -> Unit) {
+            val foodsModel = viewState.foodsUIModel
+
             binding.foodRank.text = foodsModel.foodRank.toString()
             foodsModel.foodImage.let { binding.foodImage.setImageResource(it) }
             binding.foodName.text = foodsModel.foodName
@@ -103,14 +104,20 @@ class CollectiveAdapter(
             )
             binding.foodPriceDiscount.text = spannableStringDiscount
 
-            if (foodsModel.discount) {
+            binding.discount.visibility = viewState.getDiscountVisibility()
+            binding.foodPriceDiscount.visibility = viewState.getDiscountVisibility()
+            viewState.getFoodPriceTextColor()?.let { binding.foodPrice.setTextColor(it) }
+            binding.foodPrice.paintFlags = viewState.getFoodPriceStrikethrough()
+
+            /*if (foodsModel.discount) {
                 binding.discount.visibility = View.VISIBLE
                 binding.foodPrice.setTextColor(Color.GRAY)
-                binding.foodPrice.paintFlags = binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.foodPrice.paintFlags =
+                    binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 binding.foodPriceDiscount.visibility = View.VISIBLE
             } else {
                 binding.discount.visibility = View.GONE
-            }
+            }*/
 
             binding.root.setOnClickListener { onFoodClick(foodsModel) }
         }
@@ -153,13 +160,13 @@ class CollectiveAdapter(
         when (val item = items[position]) {
             is CollectiveModel.Food -> onFoodClick?.let {
                 (holder as FoodViewHolder).bind(
-                    item.foodsModel,
+                    FoodViewState(item.foodsModel),
                     it
                 )
             }
 
             is CollectiveModel.Category -> (holder as CategoryViewHolder).bind(
-                item.categoryModel,
+                CategoryViewState(item.categoryModel),
                 onCategoryClick
             )
 
