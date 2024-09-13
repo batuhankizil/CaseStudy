@@ -1,13 +1,10 @@
 package com.example.study.adapter
 
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
@@ -25,8 +22,7 @@ import com.example.study.viewState.FoodViewState
 sealed class CollectiveModel {
     data class Category(val categoryModel: CategoryModel) : CollectiveModel()
     data class Food(val foodsModel: FoodsUIModel) : CollectiveModel()
-    data class Post(val post: com.example.study.retrofit.Post, val comment: Comment) :
-        CollectiveModel()
+    data class Posts(val post: Post, val comment: Comment) : CollectiveModel()
 }
 
 class CollectiveAdapter(
@@ -170,7 +166,7 @@ class CollectiveAdapter(
                 onCategoryClick
             )
 
-            is CollectiveModel.Post -> (holder as PostViewHolder).bind(item.post, item.comment)
+            is CollectiveModel.Posts -> (holder as PostViewHolder).bind(item.post, item.comment)
         }
     }
 
@@ -178,7 +174,7 @@ class CollectiveAdapter(
         return when (items[position]) {
             is CollectiveModel.Food -> VIEW_TYPE_FOOD
             is CollectiveModel.Category -> VIEW_TYPE_CATEGORY
-            is CollectiveModel.Post -> VIEW_TYPE_POST
+            is CollectiveModel.Posts -> VIEW_TYPE_POST
         }
     }
 

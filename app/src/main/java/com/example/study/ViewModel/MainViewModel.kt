@@ -7,8 +7,13 @@ import com.example.study.adapter.CollectiveModel
 import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.model.CategoryModel
 import com.example.study.domain.FoodsUIModel
+import com.example.study.domain.PostUIModel
+import com.example.study.domain.mapper.PostMapper
+import com.example.study.domain.mapper.PostToCollectiveModelMapper
+import com.example.study.domain.usecase.PostUseCase
 import com.example.study.retrofit.Comment
 import com.example.study.retrofit.DataRepository
+import com.example.study.retrofit.Post
 import com.example.study.sharedPreferences.LoginDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -18,9 +23,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    private val postUseCase: PostUseCase,
+    private val postToCollectiveModelMapper: PostToCollectiveModelMapper,
     private val productUseCase: ProductUseCase,
-    private val loginDataSource: LoginDataSource,
-    private val dataRepository: DataRepository
+    private val loginDataSource: LoginDataSource
 ) : ViewModel() {
 
     private val _categoryModel = MutableStateFlow<List<CategoryModel>>(emptyList())
@@ -44,17 +50,24 @@ class MainViewModel @Inject constructor(
 
     private fun fetchPosts() {
         viewModelScope.launch {
-            val posts = dataRepository.getPosts()
+            /*val posts = dataRepository.getPosts()
             val comments = dataRepository.getComments()
 
             val commentsByPostId = comments.groupBy { it.postId }
 
             val collectiveItems = posts.map { post ->
                 val postComments = commentsByPostId[post.id]?.firstOrNull()
-                CollectiveModel.Post(post, postComments ?: Comment(post.id, "No comments", post.id))
+                CollectiveModel.Posts(post, postComments ?: Comment(post.id, "No comments", post.id))
             }
 
-            _posts.value = collectiveItems
+            _posts.value = collectiveItems*/
+
+            //val postUIModels = postUseCase()
+            val postUIModel = postUseCase.fetchPost()
+            _posts.value = postUIModel.map { postToCollectiveModelMapper.map(it) }
+
+
+
         }
     }
 

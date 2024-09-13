@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.provider.ContactsContract.Data
 import com.example.study.data.ProductRepository
 import com.example.study.domain.ProductDecider
+import com.example.study.domain.mapper.PostMapper
+import com.example.study.domain.mapper.PostToCollectiveModelMapper
 import com.example.study.domain.mapper.ProductMapper
 import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.retrofit.ApiService
@@ -21,6 +23,16 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun providePostMapper(): PostMapper {
+        return PostMapper()
+    }
+
+    @Provides
+    fun providePostToCollectiveModelMapper(): PostToCollectiveModelMapper {
+        return PostToCollectiveModelMapper()
+    }
 
     @Provides
     @Singleton
