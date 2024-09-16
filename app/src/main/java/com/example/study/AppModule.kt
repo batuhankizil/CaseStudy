@@ -24,15 +24,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
+    /*@Provides
     fun providePostMapper(): PostMapper {
         return PostMapper()
-    }
+    }*/
 
-    @Provides
+    /*@Provides
     fun providePostToCollectiveModelMapper(): PostToCollectiveModelMapper {
         return PostToCollectiveModelMapper()
-    }
+    }*/
 
     @Provides
     @Singleton
@@ -49,13 +49,13 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
+    /*@Provides
     @Singleton
     fun provideDataRepository(
         apiService: ApiService
     ): DataRepository {
         return DataRepository(apiService)
-    }
+    }*/
 
     @Provides
     @Singleton

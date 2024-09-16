@@ -22,4 +22,13 @@ data class CategoryViewState(val categoryModel: CategoryModel) {
             null
         }
     }
+
+    fun updateSelection(selectedItemId: Int) {
+        if (categoryModel.id == selectedItemId) {
+            categoryModel.isSelected = true
+        } else {
+            categoryModel.isSelected = false
+        }
+    }
+
 }

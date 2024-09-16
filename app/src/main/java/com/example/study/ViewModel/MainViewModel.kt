@@ -1,5 +1,7 @@
 package com.example.study.ViewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.study.R
@@ -7,13 +9,9 @@ import com.example.study.adapter.CollectiveModel
 import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.model.CategoryModel
 import com.example.study.domain.FoodsUIModel
-import com.example.study.domain.PostUIModel
-import com.example.study.domain.mapper.PostMapper
 import com.example.study.domain.mapper.PostToCollectiveModelMapper
 import com.example.study.domain.usecase.PostUseCase
-import com.example.study.retrofit.Comment
-import com.example.study.retrofit.DataRepository
-import com.example.study.retrofit.Post
+import com.example.study.domain.usecase.UpdateCategoryUseCase
 import com.example.study.sharedPreferences.LoginDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +24,8 @@ class MainViewModel @Inject constructor(
     private val postUseCase: PostUseCase,
     private val postToCollectiveModelMapper: PostToCollectiveModelMapper,
     private val productUseCase: ProductUseCase,
-    private val loginDataSource: LoginDataSource
+    private val loginDataSource: LoginDataSource,
+    private val updateCategoryUseCase: UpdateCategoryUseCase
 ) : ViewModel() {
 
     private val _categoryModel = MutableStateFlow<List<CategoryModel>>(emptyList())
@@ -41,6 +40,7 @@ class MainViewModel @Inject constructor(
     private val _posts = MutableStateFlow<List<CollectiveModel>>(emptyList())
     fun getPostModelStateFlow(): Flow<List<CollectiveModel>> = _posts
 
+
     init {
         fetchCategoryModel()
         loadFoodItems()
@@ -50,24 +50,7 @@ class MainViewModel @Inject constructor(
 
     private fun fetchPosts() {
         viewModelScope.launch {
-            /*val posts = dataRepository.getPosts()
-            val comments = dataRepository.getComments()
-
-            val commentsByPostId = comments.groupBy { it.postId }
-
-            val collectiveItems = posts.map { post ->
-                val postComments = commentsByPostId[post.id]?.firstOrNull()
-                CollectiveModel.Posts(post, postComments ?: Comment(post.id, "No comments", post.id))
-            }
-
-            _posts.value = collectiveItems*/
-
-            //val postUIModels = postUseCase()
-            val postUIModel = postUseCase.fetchPost()
-            _posts.value = postUIModel.map { postToCollectiveModelMapper.map(it) }
-
-
-
+            _posts.value = postUseCase.fetchPost()
         }
     }
 
@@ -91,13 +74,15 @@ class MainViewModel @Inject constructor(
     }
 
     fun updateCategoryList(selectedItemId: Int) {
-        _categoryModel.value = _categoryModel.value.map {
+        /*_categoryModel.value = _categoryModel.value.map {
             if (it.id == selectedItemId) {
                 it.copy(isSelected = true)
             } else {
                 it.copy(isSelected = false)
             }
-        }
+        }*/
+
+        _categoryModel.value = updateCategoryUseCase.updateCategorySelection(_categoryModel.value, selectedItemId)
     }
 
 }

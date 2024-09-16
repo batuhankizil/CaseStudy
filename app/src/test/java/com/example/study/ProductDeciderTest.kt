@@ -7,7 +7,7 @@ import org.junit.Test
 
 class ProductDeciderTest {
 
-
+//açıklamayı düzelt
     @Test
     fun `decideDiscountPrice should show the reduced price when a discount is present`() {
         // Given

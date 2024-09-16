@@ -67,7 +67,13 @@ class CollectiveAdapter(
                 //binding.categoryName.setTextColor(Color.BLACK)
             }*/
 
-            binding.root.setOnClickListener { onCategoryClick(categoryModel.id) }
+            //binding.root.setOnClickListener { onCategoryClick(categoryModel.id) }
+
+            binding.root.setOnClickListener {
+                viewState.updateSelection(categoryModel.id)
+                onCategoryClick(categoryModel.id)
+            }
+
         }
     }
 

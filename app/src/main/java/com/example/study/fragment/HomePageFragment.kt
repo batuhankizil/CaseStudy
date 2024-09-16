@@ -65,7 +65,8 @@ class HomePageFragment : Fragment() {
                     categories ->
                 val categoryItems = categories.map { CollectiveModel.Category(it) }
                 val adapter = CollectiveAdapter(items = categoryItems,
-                    onCategoryClick = { id -> viewModel.updateCategoryList(id) })
+                    onCategoryClick = { id -> viewModel.updateCategoryList(id)
+                    })
                 binding.recyclerCategory.adapter = adapter
             }
         }
