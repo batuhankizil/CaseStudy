@@ -53,7 +53,9 @@ android {
 
 dependencies {
 
-    testImplementation (libs.kotlinx.coroutines.test)
+    implementation(libs.glide)
+
+    testImplementation(libs.kotlinx.coroutines.test)
 
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)
@@ -63,9 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
 
-    // retrofit
     implementation(libs.retrofit)
-    // gson converter
     implementation(libs.converter.gson)
 
     implementation(libs.junit.junit)
@@ -81,7 +81,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.lifecycle.viewmodel.ktx.v283)

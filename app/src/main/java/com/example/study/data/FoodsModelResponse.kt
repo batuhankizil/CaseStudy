@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FoodsModelResponse (
     @SerializedName("foodRank") val foodRank: Double?,
-    @SerializedName("foodImage") val foodImage: Int?,
+    @SerializedName("foodImage") val foodImage: String?,
     @SerializedName("foodName") val foodName: String?,
     @SerializedName("foodDetail") val foodDetail: String?,
     @SerializedName("foodPrice") val foodPrice: Double?,

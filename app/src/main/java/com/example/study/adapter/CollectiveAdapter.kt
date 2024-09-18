@@ -7,6 +7,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.study.R
 import com.example.study.databinding.ItemCategoryConstraintBinding
 import com.example.study.databinding.ItemFoodsConstraintBinding
@@ -55,19 +56,9 @@ class CollectiveAdapter(
 
             binding.root.setBackgroundResource(R.drawable.category_item_background)
 
-
             binding.categoryName.setTextColor(viewState.getTextColor())
             viewState.getBackgroundResource()
                 ?.let { binding.categoryItem.setBackgroundResource(it) }
-
-            /*if (categoryModel.isSelected) {
-                //binding.categoryName.setTextColor(Color.WHITE)
-                binding.categoryItem.setBackgroundResource(R.drawable.button_add_to_cart)
-            } else {
-                //binding.categoryName.setTextColor(Color.BLACK)
-            }*/
-
-            //binding.root.setOnClickListener { onCategoryClick(categoryModel.id) }
 
             binding.root.setOnClickListener {
                 viewState.updateSelection(categoryModel.id)
@@ -84,7 +75,11 @@ class CollectiveAdapter(
             val foodsModel = viewState.foodsUIModel
 
             binding.foodRank.text = foodsModel.foodRank.toString()
-            foodsModel.foodImage.let { binding.foodImage.setImageResource(it) }
+            foodsModel.foodImage.let { imageUrl ->
+                Glide.with(binding.foodImage.context)
+                    .load(imageUrl)
+                    .into(binding.foodImage)
+            }
             binding.foodName.text = foodsModel.foodName
             binding.foodDetail.text = foodsModel.foodDetail
 
@@ -110,17 +105,6 @@ class CollectiveAdapter(
             binding.foodPriceDiscount.visibility = viewState.getDiscountVisibility()
             viewState.getFoodPriceTextColor()?.let { binding.foodPrice.setTextColor(it) }
             binding.foodPrice.paintFlags = viewState.getFoodPriceStrikethrough()
-
-            /*if (foodsModel.discount) {
-                binding.discount.visibility = View.VISIBLE
-                binding.foodPrice.setTextColor(Color.GRAY)
-                binding.foodPrice.paintFlags =
-                    binding.foodPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                binding.foodPriceDiscount.visibility = View.VISIBLE
-            } else {
-                binding.discount.visibility = View.GONE
-            }*/
-
             binding.root.setOnClickListener { onFoodClick(foodsModel) }
         }
     }

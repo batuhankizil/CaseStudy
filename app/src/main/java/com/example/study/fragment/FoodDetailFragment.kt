@@ -34,7 +34,7 @@ class FoodDetailFragment : Fragment() {
         binding.foodName.text = foodsModel.foodName
         binding.foodRank.text = foodsModel.foodRank.toString()
         foodsModel.foodImage.let {
-            binding.foodImg.setImageResource(it)
+            binding.foodImg.toString()
         }
         binding.foodDetail.text = foodsModel.foodDetail
 

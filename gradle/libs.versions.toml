@@ -6,6 +6,7 @@ comGoogleDaggerHiltAndroidCompiler = "2"
 daggerCompiler = "2.43"
 espressoCoreVersion = "3.6.1"
 fragmentKtx = "1.8.2"
+glide = "4.16.0"
 googleHiltAndroid = "2.51.1"
 googleHiltAndroidCompiler = "2.45"
 googleHiltAndroidCompilerVersion = "2.34.1-beta"
@@ -72,6 +73,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 dagger = { module = "com.google.dagger:dagger", version.ref = "hiltAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltAndroidVersion" }
 dagger-compiler-v243 = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }

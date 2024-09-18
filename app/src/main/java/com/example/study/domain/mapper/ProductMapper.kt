@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class ProductMapper @Inject constructor(
     private val productDecider: ProductDecider
-){
+) {
 
     fun mapFromResponseList(responseList: List<FoodsModelResponse>): List<FoodsUIModel> {
         return responseList.map { mapFromResponse(it) }
@@ -20,11 +20,9 @@ class ProductMapper @Inject constructor(
 
         productDecider.decideDiscountPrice(oldPrice, hasDiscount)
 
-
-
         return FoodsUIModel(
             foodRank = foodsModel.foodRank ?: 0.0,
-            foodImage = foodsModel.foodImage ?: R.drawable.chicken_burger,
+            foodImage = foodsModel.foodImage?.takeIf { it.isNotEmpty() } ?: DEFAULT_IMAGE_URL,
             foodName = foodsModel.foodName ?: "Unknown",
             foodDetail = foodsModel.foodDetail ?: "Unknown",
             foodPrice = foodsModel.foodPrice ?: 0.0,
@@ -34,6 +32,7 @@ class ProductMapper @Inject constructor(
         )
     }
 
-
-
+    companion object {
+        private const val DEFAULT_IMAGE_URL = "https://cdn.pixabay.com/photo/2024/09/06/10/52/ai-generated-9027263_1280.jpg"
+    }
 }
