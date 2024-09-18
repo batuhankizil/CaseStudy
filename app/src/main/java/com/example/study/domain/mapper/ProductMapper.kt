@@ -33,6 +33,6 @@ class ProductMapper @Inject constructor(
     }
 
     companion object {
-        private const val DEFAULT_IMAGE_URL = "https://cdn.pixabay.com/photo/2024/09/06/10/52/ai-generated-9027263_1280.jpg"
+        private const val DEFAULT_IMAGE_URL = "https://glouton.b-cdn.net/site/images/no-image-wide.png"
     }
 }

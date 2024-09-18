@@ -1,7 +1,7 @@
 [
   {
     "foodId": 1,
-    "foodImage": "https://cdn.pixabay.com/photo/2021/01/22/04/24/sandwich-5939093_1280.jpg",
+    "foodImage": "https://i.ibb.co/Zc3TBQ8/chicken-burger.png",
     "foodName": "Chicken burger",
     "foodDetail": "200 gr chicken + cheese Lettuce + tomato",
     "foodPrice": 27.00,
@@ -10,7 +10,7 @@
   },
   {
     "foodId": 2,
-    "foodImage": "https://cdn.pixabay.com/photo/2024/09/06/10/52/ai-generated-9027261_1280.jpg",
+    "foodImage": "https://i.ibb.co/NY3BYYW/chese-burger.png",
     "foodName": "Cheese burger",
     "foodDetail": "200 gr meat + Lettuce cheese + onion + tomato",
     "foodPrice": 32.00,
@@ -19,6 +19,7 @@
   },
   {
     "foodId": 3,
+    "foodImage": "https://i.ibb.co/Zc3TBQ8/chicken-burger.png",
     "foodName": "Chicken burger",
     "foodDetail": "200 gr chicken + cheese Lettuce + tomato",
     "foodPrice": 26.00,

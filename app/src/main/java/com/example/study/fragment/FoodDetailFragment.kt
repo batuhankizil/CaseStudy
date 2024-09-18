@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.study.databinding.FragmentFoodDetailBinding
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.FoodsUIModel
@@ -33,8 +34,10 @@ class FoodDetailFragment : Fragment() {
 
         binding.foodName.text = foodsModel.foodName
         binding.foodRank.text = foodsModel.foodRank.toString()
-        foodsModel.foodImage.let {
-            binding.foodImg.toString()
+        foodsModel.foodImage.let { imageUrl ->
+            Glide.with(binding.foodImg.context)
+                .load(imageUrl)
+                .into(binding.foodImg)
         }
         binding.foodDetail.text = foodsModel.foodDetail
 
