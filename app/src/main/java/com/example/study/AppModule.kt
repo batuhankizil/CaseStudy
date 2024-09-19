@@ -24,16 +24,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    /*@Provides
-    fun providePostMapper(): PostMapper {
-        return PostMapper()
-    }*/
-
-    /*@Provides
-    fun providePostToCollectiveModelMapper(): PostToCollectiveModelMapper {
-        return PostToCollectiveModelMapper()
-    }*/
-
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
@@ -49,14 +39,6 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    /*@Provides
-    @Singleton
-    fun provideDataRepository(
-        apiService: ApiService
-    ): DataRepository {
-        return DataRepository(apiService)
-    }*/
-
     @Provides
     @Singleton
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
@@ -71,24 +53,4 @@ object AppModule {
         return ProductRepository(context)
     }
 
-    @Provides
-    @Singleton
-    fun provideProductUseCase(
-        repository: ProductRepository,
-        mapper: ProductMapper
-    ): ProductUseCase {
-        return ProductUseCase(repository, mapper)
-    }
-
-    @Provides
-    @Singleton
-    fun provideProductMapper(productDecider: ProductDecider): ProductMapper {
-        return ProductMapper(productDecider)
-    }
-
-    @Provides
-    @Singleton
-    fun provideProductDecider(): ProductDecider {
-        return ProductDecider()
-    }
 }
