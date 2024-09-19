@@ -10,6 +10,10 @@ class ProductMapper @Inject constructor(
     private val productDecider: ProductDecider
 ) {
 
+    companion object {
+        private const val DEFAULT_IMAGE_URL = "https://glouton.b-cdn.net/site/images/no-image-wide.png"
+    }
+
     fun mapFromResponseList(responseList: List<FoodsModelResponse>): List<FoodsUIModel> {
         return responseList.map { mapFromResponse(it) }
     }
@@ -30,9 +34,5 @@ class ProductMapper @Inject constructor(
             discount = hasDiscount,
             discountPrice = productDecider.decideDiscountPrice(oldPrice, hasDiscount)
         )
-    }
-
-    companion object {
-        private const val DEFAULT_IMAGE_URL = "https://glouton.b-cdn.net/site/images/no-image-wide.png"
     }
 }

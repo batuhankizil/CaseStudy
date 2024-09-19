@@ -18,8 +18,8 @@ import com.example.study.databinding.FragmentHomePageBinding
 import com.example.study.ItemDecoration
 import com.example.study.adapter.CollectiveAdapter
 import com.example.study.adapter.CollectiveModel
+import com.example.study.json.JsonUtils
 import com.example.study.sharedPreferences.LoginDataSource
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,7 +27,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomePageFragment : Fragment() {
 
-    val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: FragmentHomePageBinding
 
     @Inject
@@ -40,12 +40,9 @@ class HomePageFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentHomePageBinding.inflate(inflater, container, false)
 
-
         lifecycleScope.launch {
-            viewModel.username.collect { username ->
-                if (username != null) {
-                    binding.username.text = "Welcome, $username"
-                }
+            viewModel.username.collect { viewState ->
+                binding.username.text = viewState.username ?: R.string.noname.toString()
             }
         }
 
@@ -61,11 +58,11 @@ class HomePageFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         lifecycleScope.launch {
-            viewModel.getCategoryModelStateFlow().collect {
-                    categories ->
+            viewModel.getCategoryModelStateFlow().collect { categories ->
                 val categoryItems = categories.map { CollectiveModel.Category(it) }
                 val adapter = CollectiveAdapter(items = categoryItems,
-                    onCategoryClick = { id -> viewModel.updateCategoryList(id)
+                    onCategoryClick = { id ->
+                        viewModel.updateCategoryList(id)
                     })
                 binding.recyclerCategory.adapter = adapter
             }
@@ -75,12 +72,12 @@ class HomePageFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.getFoodsModelStateFlow().collect { foods ->
-                val gson = Gson()
                 val foodItems = foods.map { CollectiveModel.Food(it) }
                 val collectiveAdapter = CollectiveAdapter(items = foodItems,
                     onCategoryClick = { },
-                    onFoodClick = {
-                        val foodJson = gson.toJson(it)
+                    onFoodClick = { food ->
+                        val jsonUtils = JsonUtils()
+                        val foodJson = jsonUtils.foodToJson(food)
                         val bundle = Bundle().apply {
                             putString("foodJson", foodJson)
                         }
