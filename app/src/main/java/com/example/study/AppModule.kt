@@ -2,15 +2,8 @@ package com.example.study
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.ContactsContract.Data
 import com.example.study.data.ProductRepository
-import com.example.study.domain.ProductDecider
-import com.example.study.domain.mapper.PostMapper
-import com.example.study.domain.mapper.PostToCollectiveModelMapper
-import com.example.study.domain.mapper.ProductMapper
-import com.example.study.domain.usecase.ProductUseCase
 import com.example.study.retrofit.ApiService
-import com.example.study.retrofit.DataRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

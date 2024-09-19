@@ -1,6 +1,6 @@
-package com.example.study.model
+package com.example.study.domain
 
-data class CategoryModel (
+data class CategoryUIModel (
     val id: Int,
     val categoryName: String,
     val categoryIcon: String,

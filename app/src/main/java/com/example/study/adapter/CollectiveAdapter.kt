@@ -12,18 +12,16 @@ import com.example.study.R
 import com.example.study.databinding.ItemCategoryConstraintBinding
 import com.example.study.databinding.ItemFoodsConstraintBinding
 import com.example.study.databinding.ItemTitleBinding
+import com.example.study.domain.CategoryUIModel
 import com.example.study.domain.FoodsUIModel
 import com.example.study.model.CategoryModel
-import com.example.study.retrofit.Comment
-import com.example.study.retrofit.Post
 import com.example.study.viewState.CategoryViewState
 import com.example.study.viewState.FoodViewState
 
 
 sealed class CollectiveModel {
-    data class Category(val categoryModel: CategoryModel) : CollectiveModel()
+    data class Category(val categoryModel: CategoryUIModel) : CollectiveModel()
     data class Food(val foodsModel: FoodsUIModel) : CollectiveModel()
-    data class Posts(val post: Post, val comment: Comment) : CollectiveModel()
 }
 
 class CollectiveAdapter(
@@ -35,24 +33,19 @@ class CollectiveAdapter(
     companion object {
         private const val VIEW_TYPE_FOOD = 0
         private const val VIEW_TYPE_CATEGORY = 1
-        private const val VIEW_TYPE_POST = 2
-    }
-
-    class PostViewHolder(private val binding: ItemTitleBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(post: Post, comment: Comment) {
-            binding.title.text = post.title
-            binding.comment.text = comment.text
-        }
     }
 
     class CategoryViewHolder(private val binding: ItemCategoryConstraintBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(viewState: CategoryViewState, onCategoryClick: (Int) -> Unit) {
-            val categoryModel = viewState.categoryModel
+            val categoryModel = viewState.categoryUIModel
 
+            categoryModel.categoryIcon.let { imageUrl ->
+                Glide.with(binding.categoryIcon.context)
+                    .load(imageUrl)
+                    .into(binding.categoryIcon)
+            }
             binding.categoryName.text = categoryModel.categoryName
-            binding.icBurger.setImageResource(categoryModel.categoryIcon)
 
             binding.root.setBackgroundResource(R.drawable.category_item_background)
 
@@ -129,15 +122,6 @@ class CollectiveAdapter(
                 CategoryViewHolder(binding)
             }
 
-            VIEW_TYPE_POST -> {
-                val binding = ItemTitleBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                PostViewHolder(binding)
-            }
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -156,7 +140,6 @@ class CollectiveAdapter(
                 onCategoryClick
             )
 
-            is CollectiveModel.Posts -> (holder as PostViewHolder).bind(item.post, item.comment)
         }
     }
 
@@ -164,7 +147,6 @@ class CollectiveAdapter(
         return when (items[position]) {
             is CollectiveModel.Food -> VIEW_TYPE_FOOD
             is CollectiveModel.Category -> VIEW_TYPE_CATEGORY
-            is CollectiveModel.Posts -> VIEW_TYPE_POST
         }
     }
 

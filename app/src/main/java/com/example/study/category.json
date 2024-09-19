@@ -1,0 +1,22 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "categoryName": "Hamburger",
+      "categoryIcon": "https://i.ibb.co/qCP5Jp1/burger.png",
+      "isSelected": true
+    },
+    {
+      "id": "2",
+      "categoryName": "Pizza",
+      "categoryIcon": "https://i.ibb.co/rbdF8Wd/pizza.png",
+      "isSelected": false
+    },
+    {
+      "id": "3",
+      "categoryName": "Sandwich",
+      "categoryIcon": "https://i.ibb.co/QQkMm3S/sandwich.png",
+      "isSelected": false
+    }
+  ]
+}

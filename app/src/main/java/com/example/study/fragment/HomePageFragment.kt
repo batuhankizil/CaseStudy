@@ -57,18 +57,19 @@ class HomePageFragment : Fragment() {
         binding.recyclerCategory.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
+        binding.recyclerFoods.layoutManager = GridLayoutManager(context, 2)
+
         lifecycleScope.launch {
             viewModel.getCategoryModelStateFlow().collect { categories ->
                 val categoryItems = categories.map { CollectiveModel.Category(it) }
-                val adapter = CollectiveAdapter(items = categoryItems,
+                val adapter = CollectiveAdapter(
+                    items = categoryItems,
                     onCategoryClick = { id ->
                         viewModel.updateCategoryList(id)
                     })
                 binding.recyclerCategory.adapter = adapter
             }
         }
-
-        binding.recyclerFoods.layoutManager = GridLayoutManager(context, 2)
 
         lifecycleScope.launch {
             viewModel.getFoodsModelStateFlow().collect { foods ->
@@ -87,10 +88,6 @@ class HomePageFragment : Fragment() {
                 context?.let { ItemDecoration(it, spanCount = 2, spacingDp = 17) }
                     ?.let { binding.recyclerFoods.addItemDecoration(it) }
             }
-        }
-
-        binding.filterButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homePageFragment_to_retrofitFragment)
         }
 
         return binding.root
