@@ -2,7 +2,7 @@ package com.example.study
 
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.ProductDecider
-import com.example.study.domain.mapper.ProductMapper
+import com.example.study.domain.mapper.FoodMapper
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -21,7 +21,7 @@ class ProductMapperTest {
     val testCoroutineRule = TestCoroutineRule()
 
     @InjectMockKs
-    lateinit var productMapper: ProductMapper
+    lateinit var productMapper: FoodMapper
 
     @Before
     fun setUp() {

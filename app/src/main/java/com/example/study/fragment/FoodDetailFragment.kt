@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.study.R
 import com.example.study.ViewModel.FoodDetailViewModel
 import com.example.study.ViewModel.MainViewModel
 import com.example.study.databinding.FragmentFoodDetailBinding
@@ -61,11 +62,9 @@ class FoodDetailFragment : Fragment() {
                     } else {
                         binding.foodPrice.text = foodsModel.foodPrice.toString()
                     }
-                } else binding.foodDetail.text = "Failed to load"
+                } else binding.foodDetail.text = R.string.failed_to_load.toString()
             }
         }
-
-
 
         return binding.root
     }

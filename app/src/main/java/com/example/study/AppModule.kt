@@ -2,7 +2,6 @@ package com.example.study
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.study.data.ProductRepository
 import com.example.study.retrofit.ApiService
 import dagger.Module
 import dagger.Provides
@@ -38,12 +37,5 @@ object AppModule {
         return context.getSharedPreferences("LoginPref", Context.MODE_PRIVATE)
     }
 
-    @Provides
-    @Singleton
-    fun provideProductRepository(
-        @ApplicationContext context: Context
-    ): ProductRepository {
-        return ProductRepository(context)
-    }
 
 }
