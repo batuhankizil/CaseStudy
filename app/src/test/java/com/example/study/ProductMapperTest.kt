@@ -3,6 +3,7 @@ package com.example.study
 import com.example.study.data.FoodsModelResponse
 import com.example.study.domain.ProductDecider
 import com.example.study.domain.mapper.FoodMapper
+import com.example.study.model.FoodModel
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -36,18 +37,19 @@ class ProductMapperTest {
     fun `correctly maps foodRank to UI model properties`() =
         runTestAndCleanUp {
             // Given
-            val foodResponse = FoodsModelResponse(
+            val foodResponse = FoodModel(
                 foodRank = 10.0,
                 foodName = "yok",
                 foodDetail = "yok",
                 foodPrice = 10.0,
-                foodImage = null,
+                foodImage = null.toString(),
                 id = 1,
-                discount = false
+                discount = false,
+                discountPrice = 10.0
             )
 
             // When
-            val model = productMapper.mapFromResponse(foodResponse)
+            val model = productMapper.mapToFoodUIModel(foodResponse)
 
             //Then
             assertThat(model.foodRank).isEqualTo(10.0)
