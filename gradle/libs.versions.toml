@@ -1,8 +1,10 @@
 [versions]
-activityVersion = "1.9.0"
-agp = "8.5.0"
+activityCompose = "1.9.2"
+activityVersion = "1.9.2"
+agp = "8.5.2"
 androidxTruth = "1.6.0"
 comGoogleDaggerHiltAndroidCompiler = "2"
+composeBom = "2024.09.03"
 daggerCompiler = "2.43"
 espressoCoreVersion = "3.6.1"
 fragmentKtx = "1.8.2"
@@ -20,8 +22,9 @@ hiltAndroidTesting = "2.45"
 hiltAndroidTestingVersion = "2.34.1-beta"
 hiltAndroidVersion = "2.51.1"
 hiltCompiler = "2.x.y"
+hiltNavigationCompose = "1.2.0"
 junitJunit = "1"
-kotlin = "1.9.0"
+kotlin = "2.0.20"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -35,6 +38,8 @@ lifecycleViewmodelKtxVersion = "2.8.3"
 material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
+material3 = "1.3.0"
+materialVersion = "1.7.3"
 mockk = "1.13.11"
 mockkAndroid = "1.13.11"
 mockkVersion = "1"
@@ -50,25 +55,35 @@ junitJunitVersion = "4.13.2"
 truthAndroid = "2.0.0"
 truthVersion = "1.4.4"
 junitKtx = "1.2.1"
+ui = "1.7.3"
 
 [libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityVersion" }
 androidx-activity-v190 = { module = "androidx.activity:activity", version.ref = "activityVersion" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-espresso-core-v361 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-livedata-ktx-v283 = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelKtxVersion" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-viewmodel-ktx-v283 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycleLivedataKtx" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "materialVersion" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 androidx-rules = { module = "androidx.test:rules", version.ref = "runnerVersion" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 androidx-runner-v150 = { module = "androidx.test:runner", version.ref = "runnerVersion" }
 androidx-truth = { module = "androidx.test.ext:truth", version.ref = "androidxTruth" }
+androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "ui" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "ui" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "ui" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "hiltAndroid" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltAndroidVersion" }
@@ -117,4 +132,6 @@ androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.0.20" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 

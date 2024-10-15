@@ -5,5 +5,5 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.51" apply false
     kotlin("jvm") version "2.0.10"
     kotlin("plugin.serialization") version "2.0.10"
-
+    alias(libs.plugins.compose.compiler) apply false
 }
