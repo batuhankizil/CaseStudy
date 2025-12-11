@@ -8,9 +8,9 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val repo: AuthRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Result<User?> {
+    suspend operator fun invoke(body: LoginRequest): Result<User?> {
         return try {
-            val user = repo.login(LoginRequest(email, password))
+            val user = repo.login(body)
             Result.success(user)
         } catch (e: Exception) {
             Result.failure(e)
