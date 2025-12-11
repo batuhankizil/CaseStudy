@@ -8,8 +8,12 @@ class UpdateOrderStatusUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(uniqueCode: String, status: String): Result<Boolean> {
         return try {
-            val result = repo.updateOrderStatus(uniqueCode, status)
-            Result.success(result)
+            val success = repo.updateOrderStatus(uniqueCode, status)
+            if (success) {
+                Result.success(true)
+            } else {
+                Result.failure(Exception("Failed to update status"))
+            }
         } catch (e: Exception) {
             Result.failure(e)
         }
