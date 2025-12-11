@@ -17,7 +17,24 @@ class OrderRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateOrderStatus(uniqueCode: String, status: String): Boolean {
-        val response = api.updateOrderStatus(OrderStatusRequest(uniqueCode, status))
-        return response.success
+        return try {
+            val response = api.updateOrderStatus(OrderStatusRequest(uniqueCode, status))
+            response.success
+        } catch (e: retrofit2.HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val message = if (errorBody != null) {
+                try {
+                    val json = org.json.JSONObject(errorBody)
+                     json.optString("message") + ": " + json.optString("error")
+                } catch (jsonException: Exception) {
+                    "Unknown server error"
+                }
+            } else {
+                e.message()
+            }
+            throw Exception(message)
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }
