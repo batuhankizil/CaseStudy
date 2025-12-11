@@ -16,13 +16,19 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun register(body: RegisterRequest): User? {
         val response = api.register(body)
-        response.data?.token?.let { prefs.saveToken(it) }
-        return response.data?.toDomain()
+        if (!response.success) {
+            throw Exception(response.message ?: "Register failed")
+        }
+        response.token?.let { prefs.saveToken(it) }
+        return response.user?.toDomain()
     }
 
     override suspend fun login(body: LoginRequest): User? {
         val response = api.login(body)
-        response.data?.token?.let { prefs.saveToken(it) }
-        return response.data?.toDomain()
+        if (!response.success) {
+            throw Exception(response.message ?: "Login failed")
+        }
+        response.token?.let { prefs.saveToken(it) }
+        return response.user?.toDomain()
     }
 }
