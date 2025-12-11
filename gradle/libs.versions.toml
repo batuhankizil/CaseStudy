@@ -46,6 +46,7 @@ mapbox-android = { group = "com.mapbox.maps", name = "android", version.ref = "m
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-navigation-runtime-android = { group = "androidx.navigation", name = "navigation-runtime-android", version.ref = "navigationRuntimeAndroid" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.6.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
