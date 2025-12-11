@@ -1,6 +1,5 @@
 package com.example.casestudy.ui.navigation
 
-import CreateRestaurantScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +10,7 @@ import com.example.casestudy.ui.map.MapScreen
 import com.example.casestudy.ui.order.OrderListScreen
 import com.example.casestudy.ui.restaurant.RestaurantDetailScreen
 import com.example.casestudy.ui.dashboard.DashboardScreen
+import com.example.casestudy.ui.restaurant.CreateRestaurantScreen
 
 @Composable
 fun AppNavGraph(
