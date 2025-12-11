@@ -6,6 +6,8 @@ import com.example.casestudy.data.remote.dto.auth.LoginRequest
 import com.example.casestudy.data.remote.dto.auth.RegisterRequest
 import com.example.casestudy.domain.usecase.auth.LoginUseCase
 import com.example.casestudy.domain.usecase.auth.RegisterUseCase
+import com.example.casestudy.domain.usecase.restaurant.GetRestaurantUseCase
+import com.example.casestudy.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,85 +17,65 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val getRestaurantUseCase: GetRestaurantUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AuthUiState())
     val state = _state.asStateFlow()
 
+    private val _destination = MutableStateFlow<String?>(null)
+    val destination = _destination.asStateFlow()
+
     fun login(email: String, password: String) {
         viewModelScope.launch {
-
             _state.value = AuthUiState(loading = true)
-
             val result = loginUseCase(LoginRequest(email, password))
-
-            result.onSuccess { user ->
-                if (user != null) {
-                    _state.value = AuthUiState(
-                        loading = false,
-                        success = true
-                    )
-                } else {
-                    _state.value = AuthUiState(
-                        loading = false,
-                        error = "Invalid credentials"
-                    )
-                }
-            }.onFailure { error ->
-                _state.value = AuthUiState(
-                    loading = false,
-                    error = error.message ?: "Unexpected error"
-                )
-            }
+            handleAuthResult(result)
         }
     }
 
     fun register(
-        name: String,
-        email: String,
-        password: String,
-        confirmPassword: String,
-        phone: String,
-        businessName: String,
-        businessPhone: String,
-        businessEmail: String
+        name: String, email: String, password: String, confirmPassword: String,
+        phone: String, businessName: String, businessPhone: String, businessEmail: String
     ) {
         viewModelScope.launch {
-
             _state.value = AuthUiState(loading = true)
-
             val result = registerUseCase(
                 RegisterRequest(
-                    name = name,
-                    email = email,
-                    password = password,
-                    password_confirmation = confirmPassword,
-                    phone = phone,
-                    bussiness_name = businessName,
-                    bussiness_phone = businessPhone,
-                    bussiness_email = businessEmail
+                    name,
+                    email,
+                    password,
+                    confirmPassword,
+                    phone,
+                    businessName,
+                    businessPhone,
+                    businessEmail
                 )
             )
-
-            result.onSuccess { user ->
-                if (user != null) {
-                    _state.value = AuthUiState(
-                        loading = false,
-                        success = true
-                    )
-                } else {
-                    _state.value = AuthUiState(
-                        loading = false,
-                        error = "Register failed"
-                    )
-                }
-            }.onFailure { error ->
-                _state.value = AuthUiState(
-                    loading = false,
-                    error = error.message ?: "Unexpected error"
-                )
-            }
+            handleAuthResult(result)
         }
+    }
+
+    private suspend fun handleAuthResult(result: Result<com.example.casestudy.domain.model.User?>) {
+        if (result.isSuccess && result.getOrNull() != null) {
+            val restaurantResult = getRestaurantUseCase()
+            if (restaurantResult.isSuccess && restaurantResult.getOrNull() != null) {
+                _destination.value = Screen.Dashboard.route
+            } else {
+                _destination.value = Screen.CreateRestaurant.route
+            }
+
+            _state.value = AuthUiState(loading = false, success = true)
+        } else {
+            _state.value = AuthUiState(
+                loading = false,
+                error = result.exceptionOrNull()?.message ?: "Authentication failed"
+            )
+        }
+    }
+
+    fun onNavigationHandled() {
+        _destination.value = null
     }
 }
