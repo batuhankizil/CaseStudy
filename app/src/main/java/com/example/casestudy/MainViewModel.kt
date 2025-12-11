@@ -3,6 +3,7 @@ package com.example.casestudy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.casestudy.data.local.preferences.AuthPreferences
+import com.example.casestudy.domain.usecase.restaurant.GetRestaurantUseCase
 import com.example.casestudy.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val authPreferences: AuthPreferences
+    private val authPreferences: AuthPreferences,
+    private val getRestaurantUseCase: GetRestaurantUseCase
 ) : ViewModel() {
 
     private val _startDestination = MutableStateFlow<String?>(null)
@@ -29,7 +31,13 @@ class MainViewModel @Inject constructor(
             if (token.isNullOrEmpty()) {
                 _startDestination.value = Screen.Login.route
             } else {
-                _startDestination.value = Screen.Dashboard.route
+                val result = getRestaurantUseCase()
+
+                if (result.isSuccess && result.getOrNull() != null) {
+                    _startDestination.value = Screen.Dashboard.route
+                } else {
+                    _startDestination.value = Screen.CreateRestaurant.route
+                }
             }
         }
     }
