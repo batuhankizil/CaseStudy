@@ -29,7 +29,7 @@ class MainViewModel @Inject constructor(
             if (token.isNullOrEmpty()) {
                 _startDestination.value = Screen.Login.route
             } else {
-                _startDestination.value = Screen.OrderList.route
+                _startDestination.value = Screen.Dashboard.route
             }
         }
     }
