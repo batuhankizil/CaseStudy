@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.casestudy.data.local.preferences.AuthPreferences
 import com.example.casestudy.data.remote.socket.OrderSocketService
+import com.example.casestudy.domain.usecase.order.CacheOrderUseCase
 import com.example.casestudy.domain.usecase.order.GetOrdersUseCase
 import com.example.casestudy.domain.usecase.order.UpdateOrderStatusUseCase
 import com.example.casestudy.domain.usecase.restaurant.GetRestaurantUseCase
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class OrderViewModel @Inject constructor(
     private val getOrdersUseCase: GetOrdersUseCase,
     private val updateOrderStatusUseCase: UpdateOrderStatusUseCase,
+    private val cacheOrderUseCase: CacheOrderUseCase,
     private val socketService: OrderSocketService,
     private val authPreferences: AuthPreferences,
     private val getRestaurantUseCase: GetRestaurantUseCase
@@ -30,16 +32,16 @@ class OrderViewModel @Inject constructor(
         loadOrders()
         connectSocket()
     }
-    
+
     private fun connectSocket() {
         viewModelScope.launch {
             val token = authPreferences.tokenFlow.firstOrNull()
             val restaurantResult = getRestaurantUseCase()
             val restaurant = restaurantResult.getOrNull()
-            
+
             if (token != null && restaurant != null && restaurant.id != 0) {
-                 socketService.connect(token, restaurant.id)
-                 observeSocket()
+                socketService.connect(token, restaurant.id)
+                observeSocket()
             }
         }
     }
@@ -69,7 +71,18 @@ class OrderViewModel @Inject constructor(
             val result = updateOrderStatusUseCase(uniqueCode, newStatus)
 
             result.onSuccess { success ->
-                if (success) loadOrders()
+                if (success) {
+                    val updatedOrders = _state.value.orders.map { order ->
+                        if (order.uniqueCode == uniqueCode) {
+                            order.copy(
+                                orderDetails = order.orderDetails.copy(status = newStatus)
+                            )
+                        } else {
+                            order
+                        }
+                    }
+                    _state.value = _state.value.copy(orders = updatedOrders)
+                }
             }.onFailure { error ->
                 _state.value = _state.value.copy(
                     error = error.message
@@ -81,9 +94,13 @@ class OrderViewModel @Inject constructor(
     private fun observeSocket() {
         viewModelScope.launch {
             socketService.orderFlow.collect { newOrder ->
+                cacheOrderUseCase(newOrder)
+
                 val updated = _state.value.orders.toMutableList()
-                updated.add(0, newOrder)
-                _state.value = _state.value.copy(orders = updated)
+                if (updated.none { it.uniqueCode == newOrder.uniqueCode }) {
+                    updated.add(0, newOrder)
+                    _state.value = _state.value.copy(orders = updated)
+                }
             }
         }
     }
