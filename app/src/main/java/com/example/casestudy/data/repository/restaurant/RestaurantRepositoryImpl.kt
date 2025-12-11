@@ -21,6 +21,6 @@ class RestaurantRepositoryImpl @Inject constructor(
 
     override suspend fun getRestaurant(): Restaurant? {
         val response = api.getRestaurantInfo()
-        return response.data?.toDomain()
+        return response.data?.firstOrNull()?.toDomain()
     }
 }
