@@ -10,6 +10,7 @@ import com.example.casestudy.ui.auth.RegisterScreen
 import com.example.casestudy.ui.map.MapScreen
 import com.example.casestudy.ui.order.OrderListScreen
 import com.example.casestudy.ui.restaurant.RestaurantDetailScreen
+import com.example.casestudy.ui.dashboard.DashboardScreen
 
 @Composable
 fun AppNavGraph(
@@ -37,6 +38,9 @@ fun AppNavGraph(
         }
         composable(Screen.Map.route) {
             MapScreen(navController = navController)
+        }
+        composable(Screen.Dashboard.route) {
+            DashboardScreen(navController = navController)
         }
     }
 }
