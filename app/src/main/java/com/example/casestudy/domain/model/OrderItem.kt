@@ -4,5 +4,6 @@ data class OrderItem(
     val productId: Int,
     val productName: String,
     val price: Double,
-    val quantity: Int
+    val quantity: Int,
+    val total: Double
 )

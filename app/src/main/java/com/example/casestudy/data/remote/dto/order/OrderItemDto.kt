@@ -10,5 +10,7 @@ data class OrderItemDto(
     @SerializedName("price")
     val price: Double,
     @SerializedName("product_id")
-    val productId: Int
+    val productId: Int?,
+    @SerializedName("total")
+    val total: Double
 )

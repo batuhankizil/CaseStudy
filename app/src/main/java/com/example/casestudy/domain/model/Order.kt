@@ -2,10 +2,12 @@ package com.example.casestudy.domain.model
 
 data class Order(
     val id: Int,
-    val status: String,
-    val totalPrice: Double,
-    val createdAt: String,
+    val uniqueCode: String,
+    val customerName: String,
+    val customerPhone: String,
+    val customerEmail: String?,
+    val deliveryAddress: Address,
+    val orderDetails: OrderDetails,
     val items: List<OrderItem>,
-    val lat: Double?,
-    val lng: Double?
+    val createdAt: String
 )
