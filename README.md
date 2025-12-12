@@ -97,6 +97,7 @@ Sipariş tamamlandığında WebSocket üzerinden `order.created` olayı tetiklen
 | :---: | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/0ce2fad3-b910-43e7-962e-ce42a686598e" width="250"/> | <img src="https://github.com/user-attachments/assets/338736e3-569c-47f5-ac59-58a2f91d67f3" width="250"/> | <img src="https://github.com/user-attachments/assets/ea2eee88-31c3-4556-a9d2-a7bfa56531a5" width="250"/> |
 
+[![Download APK](https://img.shields.io/badge/Download-APK-dca502?style=for-the-badge&logo=android&logoColor=white)](https://github.com/batuhankizil/CaseStudy/releases/download/v1.0/app-debug.apk)
 
 
 ### 🗺️ Mapbox
