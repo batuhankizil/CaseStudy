@@ -33,25 +33,39 @@ Modern Android teknolojileri kullanılarak geliştirilmiş, **gerçek zamanlı**
 * **Email:** batu@restaurant.com
 * **Şifre:** pw123456
 
-## Postman
-* **Sepet**
-URL: POST http://188.34.155.223/new-qr-menu/api/v1/order/store_cart_items
-  {
+📡 API & Postman Testleri
+
+Aşağıdaki istekleri Postman üzerinden göndererek sistemi test edebilirsiniz.
+
+
+### 1. Sepet Oluşturma
+
+**URL:** `POST http://188.34.155.223/new-qr-menu/api/v1/order/store_cart_items`
+
+```json
+{
   "restaurant_id": 65,
   "user_id": null,
   "note": null,
   "items": [
-  {
-  "product_id": 29,
-  "quantity": 2,
-  "unit_price": 45.50,
-  "note": "Acısız"
-  }
+    {
+      "product_id": 29,
+      "quantity": 2,
+      "unit_price": 45.50,
+      "note": "Acısız"
+    }
   ]
-  }
+}
+```
 
-* **Sipariş**
-  {
+### 2. Sipariş Verme (Checkout)
+
+Sipariş tamamlandığında WebSocket üzerinden `order.created` olayı tetiklenir ve restoran sahibinin ekranına anlık bildirim düşer.
+
+**URL:** `POST http://188.34.155.223/new-qr-menu/api/v1/order/store_order`
+
+```json
+{
   "cart_id": 20,
   "delivery_name": "Test Müşteri",
   "delivery_phone": "+905551234560",
@@ -67,25 +81,31 @@ URL: POST http://188.34.155.223/new-qr-menu/api/v1/order/store_cart_items
   "payment_method": "iyzico",
   "payment_status": "pending",
   "status": "pending"
-  }
+}
+```
+## 📷 Ekran Görüntüleri
+
+| Giriş | Kayıt | Kayı |
+| :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/022c2ce2-7161-4ee9-b393-f8473702683b" width="250"/> | <img src="https://github.com/user-attachments/assets/22dfbd7f-d26e-43e4-8c88-9ec60d39c47b" width="250"/> | <img src="https://github.com/user-attachments/assets/d7df7edb-9d7d-4987-b416-ea40193e048d" width="250"/> |
+
+| Dashboard | Restoran Oluştur 1 | Restoran Oluştur |
+| :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/0b0e2dd6-53d1-464a-bd19-b2d539660b1a" width="250"/> | <img src="https://github.com/user-attachments/assets/63f0919f-c0e9-4525-ae21-63789cfc82b8" width="250"/> | <img src="https://github.com/user-attachments/assets/58f52847-8e46-4edb-b513-9cafac3ef479" width="250"/> |
+
+| Restoran Detay | Sipariş Listesi | Harita |
+| :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/0ce2fad3-b910-43e7-962e-ce42a686598e" width="250"/> | <img src="https://github.com/user-attachments/assets/338736e3-569c-47f5-ac59-58a2f91d67f3" width="250"/> | <img src="https://github.com/user-attachments/assets/ea2eee88-31c3-4556-a9d2-a7bfa56531a5" width="250"/> |
 
 
 
-## Kurulum
+### 🗺️ Mapbox
 
-```bash
-git clone [https://github.com/batuhankizil/CaseStudy.git](https://github.com/batuhankizil/CaseStudy.git)
+```properties
+# Mapbox Harita İndirme
+MAPBOX_DOWNLOADS_TOKEN=sk.eyJ1IjoiYmF0dWhhbmtpemlsIiwiYSI6ImNtajBpZDk3azA0ZHAzZXF5cmNmOGdkbG0ifQ.Um6oWByCxANo89agQb4Qgw
 
-<img width="1080" height="2220" alt="Login" src="https://github.com/user-attachments/assets/694dd8ff-cd4a-422d-82bd-564054c72138" />
-<img width="1080" height="2220" alt="Register" src="https://github.com/user-attachments/assets/71add11f-6672-40a0-8d9c-a5edea49df23" />
-<img width="1080" height="2220" alt="Register2" src="https://github.com/user-attachments/assets/0311a444-e3ec-48ca-ad65-eaad78057946" />
-<img width="1080" height="2220" alt="RestaurantCreate" src="https://github.com/user-attachments/assets/9766266d-9bf0-45fa-8093-5588eb831464" />
-<img width="1080" height="2220" alt="RestaurantCreate2" src="https://github.com/user-attachments/assets/50a4a484-6df9-4c1e-9f04-db42258ca110" />
-<img width="1080" height="2220" alt="Dashboard" src="https://github.com/user-attachments/assets/758d72bb-60de-4d32-9bd3-ca54199ebcef" />
-<img width="1080" height="2220" alt="OrderList" src="https://github.com/user-attachments/assets/472fecf0-5e65-42f2-9c08-b67509fad428" />
-<img width="1080" height="2220" alt="RestaurantDetail" src="https://github.com/user-attachments/assets/2d75c4cd-40fb-4a22-8ebc-5d2868297b6e" />
-<img width="1080" height="2220" alt="Map" src="https://github.com/user-attachments/assets/58ed0b09-5b1e-4b3a-bc32-058ebac6c253" />
-
-
+# Mapbox Harita Gösterim
+MAPBOX_PUBLIC_TOKEN=pk.eyJ1IjoiYmF0dWhhbmtpemlsIiwiYSI6ImNtajBodmU2bTA5Y2QzZHNmOGdsajZkZWQifQ.Vp_cf2kgF_SVXkFiTksnTw
 
 
