@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CaseStudy</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYmF0dWhhbmtpemlsIiwiYSI6ImNtajBodmU2bTA5Y2QzZHNmOGdsajZkZWQifQ.Vp_cf2kgF_SVXkFiTksnTw</string>
 </resources>
