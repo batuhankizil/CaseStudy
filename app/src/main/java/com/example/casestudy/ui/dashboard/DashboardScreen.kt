@@ -15,9 +15,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -65,24 +66,32 @@ fun DashboardScreen(
             ) {
                 item {
                     DashboardCard(
-                        title = "Orders",
-                        icon = Icons.AutoMirrored.Filled.List,
-                        color = Color(0xFF4CAF50),
+                        title = "Active Orders",
+                        icon = Icons.Default.ShoppingCart,
+                        color = MaterialTheme.colorScheme.primary,
                         onClick = { navController.navigate(Screen.OrderList.route) }
                     )
                 }
                 item {
                     DashboardCard(
-                        title = "Restaurant Info",
-                        icon = Icons.Default.Info,
-                        color = Color(0xFF2196F3),
+                        title = "Delivery Map",
+                        icon = Icons.Default.Place,
+                        color = Color(0xFF10B981),
+                        onClick = { navController.navigate(Screen.Map.route) }
+                    )
+                }
+                item {
+                    DashboardCard(
+                        title = "Restaurant Profile",
+                        icon = Icons.Default.Person,
+                        color = MaterialTheme.colorScheme.secondary,
                         onClick = { navController.navigate(Screen.RestaurantDetail.route) }
                     )
                 }
                 item {
                     DashboardCard(
                         title = "Logout",
-                        icon = Icons.Default.ExitToApp,
+                        icon = Icons.AutoMirrored.Filled.ExitToApp,
                         color = Color(0xFFF44336),
                         onClick = {
                             viewModel.logout {
